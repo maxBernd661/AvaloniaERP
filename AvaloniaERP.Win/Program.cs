@@ -1,5 +1,11 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
+using AvaloniaERP.Win.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using AvaloniaERP.Core;
 
 namespace AvaloniaERP.Win
 {
@@ -9,14 +15,41 @@ namespace AvaloniaERP.Win
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        public static void Main(string[] args)
+        {
+            SQLitePCL.Batteries_V2.Init();
+            AppHost = CreateHostBuilder(args).Build();
+            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        }
+
+        public static IHost AppHost { get; private set; } = null!;
+
+        private static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            //avalonia unterstützt generic host nicht, einmal vorher bauen und dann in die app reingeben, passt
+            return Host
+                .CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((_, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", optional: false);
+                }).ConfigureServices((context, services) =>
+                {
+                    services.AddDbContext<EntityContext>(options =>
+                    {
+                        options.UseSqlite(context.Configuration.GetConnectionString("Default"));
+                    });
+
+                    services.AddTransient<MainWindowViewModel>();
+                });
+        }
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
+        {
+            return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .WithInterFont()
                 .LogToTrace();
+        }
     }
 }
