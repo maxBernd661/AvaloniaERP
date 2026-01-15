@@ -7,11 +7,7 @@
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="AvaloniaERP.Win.Views.ProductListView"
-             x:DataType="vm:ProductDummyListViewModel">
-
-    <Design.DataContext>
-        <vm:ProductDummyListViewModel/>
-    </Design.DataContext>
+             x:DataType="vm:ProductListViewModel">
 
     <Grid RowDefinitions="Auto,*" Margin="12" RowSpacing="8">
      
