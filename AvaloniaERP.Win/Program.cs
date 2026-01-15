@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using AvaloniaERP.Core;
+using AvaloniaERP.Win.Services;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AvaloniaERP.Win
 {
@@ -40,8 +42,16 @@ namespace AvaloniaERP.Win
                     });
 
                     services.AddTransient<MainWindowViewModel>();
+                    services.AddTransient<CustomerListViewModel>();
+                    services.AddTransient<OrderListViewModel>();
                     services.AddTransient<ProductListViewModel>();
+
                     services.AddTransient<Views.ProductListView>();
+
+                    services.AddTransient(typeof(ListViewModel<>));
+
+                    services.AddSingleton<IViewModelFactory, ViewModelFactory>();
+
 
                 });
         }
