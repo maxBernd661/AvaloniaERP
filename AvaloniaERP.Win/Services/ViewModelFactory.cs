@@ -27,16 +27,24 @@ namespace AvaloniaERP.Win.Services
         private readonly IServiceProvider sp = provider;
         public object Create(Type entityType, ViewKind kind)
         {
-
-            Type? modelType = entityType switch
+            if (kind == ViewKind.ListView)
             {
-                _ when entityType == typeof(Customer) => typeof(CustomerListViewModel),
-                _ when entityType == typeof(Order) => typeof(OrderListViewModel),
-                _ when entityType == typeof(Product) => typeof(ProductListViewModel),
-                _ => throw new ArgumentException(nameof(entityType))
-            };
+                Type? modelType = entityType switch
+                {
+                    _ when entityType == typeof(Customer) => typeof(CustomerListViewModel),
+                    _ when entityType == typeof(Order) => typeof(OrderListViewModel),
+                    _ when entityType == typeof(Product) => typeof(ProductListViewModel),
+                    _ => throw new ArgumentException(nameof(entityType))
+                };
 
-            return sp.GetRequiredService(modelType);
+                return sp.GetRequiredService(modelType);
+            }
+            else
+            {
+
+            }
+
+            return null;
         }
 
         public IViewModel Create<T>(ViewKind kind)
