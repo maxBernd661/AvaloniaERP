@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvaloniaERP.Win.ViewModels;
 
-public partial class ProductDetailViewModel(IServiceProvider sp, Product product) : EntityDetailViewModel<Product>(sp, product)
+public partial class ProductDetailViewModel(IServiceProvider sp, Product? product) : EntityDetailViewModel<Product>(sp, product)
 {
     [ObservableProperty]
     [Required, MaxLength(100)]

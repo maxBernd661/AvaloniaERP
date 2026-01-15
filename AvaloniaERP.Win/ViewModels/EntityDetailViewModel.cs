@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using AvaloniaERP.Win.Services;
 
 namespace AvaloniaERP.Win.ViewModels
 {
-    public interface IDetailViewModel
+    public interface IDetailViewModel : IViewModel
     {
 
     }
@@ -24,14 +25,14 @@ namespace AvaloniaERP.Win.ViewModels
         }
     }
 
-    public abstract class EntityDetailViewModel<TEntity>(IServiceProvider sp, PersistentBase entity) : DetailViewModelBase where TEntity : PersistentBase
+    public abstract class EntityDetailViewModel<TEntity>(IServiceProvider sp, PersistentBase? entity = null) : DetailViewModelBase where TEntity : PersistentBase
     {
         protected IServiceProvider ServiceProvider = sp;
-        protected TEntity Entity = (TEntity)entity;
+        protected TEntity? Entity = (TEntity?)entity;
 
         public Guid EntityId
         {
-            get { return Entity.Id; }
+            get { return Entity?.Id ?? Guid.Empty; }
         }
 
         protected abstract void Reset();

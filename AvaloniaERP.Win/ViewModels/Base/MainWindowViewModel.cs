@@ -32,21 +32,21 @@ namespace AvaloniaERP.Win.ViewModels
         [RelayCommand]
         public void ShowProducts()
         {
-            IViewModel vm = factory.Create<Product>(ViewKind.ListView);
+            IViewModel vm = factory.Create(typeof(Product), ViewKind.ListView);
             Current = vm;
         }
         
         [RelayCommand]
         public void ShowCustomers()
         {
-            IViewModel vm = factory.Create<Customer>(ViewKind.ListView);
+            IViewModel vm = factory.Create(typeof(Customer), ViewKind.ListView);
             Current = vm;
         }
 
         [RelayCommand]
         public void ShowOrders()
         {
-            IViewModel vm = factory.Create<Order>(ViewKind.ListView);
+            IViewModel vm = factory.Create(typeof(Order), ViewKind.ListView);
             Current = vm;
         }
     }

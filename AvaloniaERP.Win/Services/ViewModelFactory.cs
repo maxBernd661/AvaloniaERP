@@ -13,8 +13,11 @@ namespace AvaloniaERP.Win.Services
 
     public interface IViewModelFactory
     {
-        object Create(Type entityType, ViewKind kind);
-        IViewModel Create<T>(ViewKind kind);
+        IViewModel Create(Type entityType, ViewKind kind);
+
+        IListViewModel CreateListView(Type entityType);
+
+        IDetailViewModel CreateDetailView(Type entityType, PersistentBase? existing = null);
     }
 
     public interface IViewModel { }
@@ -25,31 +28,34 @@ namespace AvaloniaERP.Win.Services
     public sealed class ViewModelFactory(IServiceProvider provider) : IViewModelFactory
     {
         private readonly IServiceProvider sp = provider;
-        public object Create(Type entityType, ViewKind kind)
+
+        public IViewModel Create(Type entityType, ViewKind kind)
         {
-            if (kind == ViewKind.ListView)
-            {
-                Type? modelType = entityType switch
-                {
-                    _ when entityType == typeof(Customer) => typeof(CustomerListViewModel),
-                    _ when entityType == typeof(Order) => typeof(OrderListViewModel),
-                    _ when entityType == typeof(Product) => typeof(ProductListViewModel),
-                    _ => throw new ArgumentException(nameof(entityType))
-                };
-
-                return sp.GetRequiredService(modelType);
-            }
-            else
-            {
-
-            }
-
-            return null;
+            return kind == ViewKind.ListView ? CreateListView(entityType) : CreateDetailView(entityType);
         }
 
-        public IViewModel Create<T>(ViewKind kind)
+        public IListViewModel CreateListView(Type entityType)
         {
-            return (IViewModel)Create(typeof(T), kind);
+            Type? modelType = entityType switch
+            {
+                _ when entityType == typeof(Customer) => typeof(CustomerListViewModel),
+                _ when entityType == typeof(Order) => typeof(OrderListViewModel),
+                _ when entityType == typeof(Product) => typeof(ProductListViewModel),
+                _ => throw new ArgumentException(nameof(entityType))
+            };
+
+            return (IListViewModel)sp.GetRequiredService(modelType);
+        }
+
+        public IDetailViewModel CreateDetailView(Type entityType, PersistentBase? existing = null)
+        {
+            IDetailViewModel vm = entityType switch
+            {
+                _ when entityType == typeof(Product) => ActivatorUtilities.CreateInstance<ProductDetailViewModel>(sp, existing!),
+                _ => throw new ArgumentException(nameof(entityType))
+            };
+
+            return vm;
         }
     }
 }
