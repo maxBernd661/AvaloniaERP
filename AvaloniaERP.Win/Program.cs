@@ -42,6 +42,8 @@ namespace AvaloniaERP.Win
                     services.AddTransient<MainWindowViewModel>();
                     services.AddTransient<ProductListViewModel>();
                     services.AddTransient<Views.ProductListView>();
+                    services.AddTransient<Func<ProductListViewModel>>(sp => () =>
+                        sp.GetRequiredService<ProductListViewModel>());
 
                 });
         }

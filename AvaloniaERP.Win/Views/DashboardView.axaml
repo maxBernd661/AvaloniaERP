@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaERP.Win.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="AvaloniaERP.Win.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+
+    <Grid RowDefinitions="Auto,*" Margin="16" RowSpacing="12">
+        <TextBlock Text="Dashboard" FontSize="24" FontWeight="SemiBold" />
+        <WrapPanel Grid.Row="1" Spacing="12">
+            <Button Content="Products" Command="{Binding OpenProductListCommand}" Width="160" Height="48" />
+        </WrapPanel>
+    </Grid>
+</UserControl>

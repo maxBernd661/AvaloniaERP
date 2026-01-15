@@ -9,12 +9,12 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaERP.Win">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="12" Margin="12">
+            <TextBlock Text="Avalonia ERP" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <Button Content="Dashboard" Command="{Binding ShowDashboardCommand}" />
+        </StackPanel>
+        <ContentControl Content="{Binding CurrentView}" Margin="12" />
+    </DockPanel>
 
 </Window>
