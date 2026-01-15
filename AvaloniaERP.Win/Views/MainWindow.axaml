@@ -45,10 +45,13 @@
 
                     <StackPanel Spacing="8">
                         <Button Content="Products"
-                                Command="{Binding ShowProducts}"/>
+                                Command="{Binding ShowProductsCommand}"/>
 
-                        <Button Content="Customers" IsEnabled="False"/>
-                        <Button Content="Orders" IsEnabled="False"/>
+                        <Button Content="Customers"
+                                Command="{Binding ShowCustomersCommand}"/>
+
+                        <Button Content="Orders"
+                                Command="{Binding ShowOrdersCommand}"/>
                         <Button Content="Cart" IsEnabled="False"/>
 
                         <Separator Margin="0,8"/>

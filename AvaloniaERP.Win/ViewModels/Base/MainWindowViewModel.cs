@@ -35,5 +35,19 @@ namespace AvaloniaERP.Win.ViewModels
             IViewModel vm = factory.Create<Product>(ViewKind.ListView);
             Current = vm;
         }
+        
+        [RelayCommand]
+        public void ShowCustomers()
+        {
+            IViewModel vm = factory.Create<Customer>(ViewKind.ListView);
+            Current = vm;
+        }
+
+        [RelayCommand]
+        public void ShowOrders()
+        {
+            IViewModel vm = factory.Create<Order>(ViewKind.ListView);
+            Current = vm;
+        }
     }
 }
