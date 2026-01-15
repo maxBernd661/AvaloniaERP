@@ -2,13 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:AvaloniaERP.Win.ViewModels"
              xmlns:dummy="clr-namespace:AvaloniaERP.Win.ViewModels.Dummy"
+             xmlns:entitySpecific="clr-namespace:AvaloniaERP.Win.ViewModels.EntitySpecific"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="AvaloniaERP.Win.Views.List.ProductListView"
-             x:DataType="dummy:ProductDummyListViewModel">
+             x:DataType="entitySpecific:ProductListViewModel">
 
     <Design.DataContext>
         <dummy:ProductDummyListViewModel/>
