@@ -7,7 +7,7 @@
         x:Class="AvaloniaERP.Win.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="AvaloniaERP.Win">
+        Title="AvaloniaERP Dashboard">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -15,6 +15,29 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid ColumnDefinitions="240,*" RowDefinitions="Auto,*">
+        <Border Grid.RowSpan="2" Background="#1E1E1E" Padding="16">
+            <StackPanel Spacing="12">
+                <TextBlock Text="AvaloniaERP" FontSize="18" FontWeight="Bold" Foreground="White" />
+                <TextBlock Text="Navigation" FontSize="12" Foreground="White" Opacity="0.7" />
+                <ListBox ItemsSource="{Binding NavigationItems}"
+                         SelectedItem="{Binding SelectedNavigationItem}"
+                         Background="Transparent"
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="8" CornerRadius="6">
+                                <TextBlock Text="{Binding Title}" Foreground="White" />
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Padding="24">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Border>
+    </Grid>
 
 </Window>
