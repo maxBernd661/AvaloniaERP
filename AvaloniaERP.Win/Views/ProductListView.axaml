@@ -33,8 +33,7 @@
               <DataTemplate>
                   <Border Padding="4">
                       <DockPanel LastChildFill="True">
-                          <TextBlock Text="{Binding Name}"/>
-                          <TextBlock Text ="{Binding IsAvailable}" Opacity="0.7"/>
+                          <TextBlock Text="{Binding DisplayString}"/>
                       </DockPanel>
                   </Border>
               </DataTemplate>

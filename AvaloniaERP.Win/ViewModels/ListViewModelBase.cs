@@ -10,15 +10,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AvaloniaERP.Win.ViewModels
 {
-    public abstract class ListViewModelBase<TEntity, TRow>(EntityContext entityContext) : INotifyPropertyChanged where TEntity: PersistentBase
+    public abstract class ListViewModelBase<TEntity, TRow>(EntityContext entityContext) : INotifyPropertyChanged where TEntity: PersistentBase 
+                                                                                                                 where TRow : IEntityRow
     {
+
         private readonly EntityContext context = entityContext;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private TRow? selectedItem;
 
-        public TRow SelectedRow
+        public TRow? SelectedRow
         {
             get { return selectedItem; }
             set
@@ -30,7 +32,7 @@ namespace AvaloniaERP.Win.ViewModels
 
         private string? filterString;
 
-        public string FilterString
+        public string? FilterString
         {
             get { return filterString; }
             set
@@ -74,4 +76,6 @@ namespace AvaloniaERP.Win.ViewModels
         protected abstract IOrderedQueryable<TEntity> ApplyOrder(IQueryable<TEntity> q);
         protected abstract IQueryable<TRow> Project(IQueryable<TEntity> q);
     }
+
+
 }

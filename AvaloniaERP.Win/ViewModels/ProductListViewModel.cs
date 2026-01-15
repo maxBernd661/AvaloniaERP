@@ -22,6 +22,4 @@ namespace AvaloniaERP.Win.ViewModels
             return q.Select(x => new ProductRow(x.Name, x.PricePerUnit, x.Weight, x.IsAvailable));
         }
     }
-
-    public record ProductRow(string Name, decimal Price, double Weight, bool IsAvailable);
 }

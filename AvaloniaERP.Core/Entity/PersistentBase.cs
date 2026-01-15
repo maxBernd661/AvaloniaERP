@@ -10,4 +10,19 @@
 
         public DateTime UpdateTime { get; set; }
     }
+
+    public interface IEntityRow
+    {
+        string AsString();
+    }
+
+    public abstract class RowBase<TEntity> : IEntityRow where TEntity : PersistentBase
+    {
+        public Type EntityType = typeof(TEntity);
+
+
+        public abstract string AsString();
+
+        public string DisplayString => AsString();
+    }
 }
