@@ -45,6 +45,26 @@ namespace AvaloniaERP.Core.Entity
         }
     }
 
+    public class OrderRow(string customer, OrderStatus status, decimal totalCost, double totalWeight)
+        : RowBase<Order>
+    {
+        public OrderRow(Order order) : this(order.Customer.Name, order.Status,
+            order.Items.Sum(x => x.Product.PricePerUnit), order.Items.Sum(x => x.Product.Weight)){}
+
+        public string Customer { get; set; } = customer;
+
+        public OrderStatus Status { get; set; } = status;
+
+        public decimal TotalCost { get; set; } = totalCost;
+
+        public double TotalWeight { get; set; } = totalWeight;
+
+        public override string AsString()
+        {
+            return $"{Customer} - {Status.ToString()}, {TotalCost:C}, {TotalWeight:N}";
+        }
+    }
+
     public enum OrderStatus
     {
         None,

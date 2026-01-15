@@ -13,7 +13,6 @@ namespace AvaloniaERP.Win.ViewModels
     public abstract class ListViewModelBase<TEntity, TRow>(EntityContext entityContext) : INotifyPropertyChanged where TEntity: PersistentBase 
                                                                                                                  where TRow : IEntityRow
     {
-
         private readonly EntityContext context = entityContext;
 
         public event PropertyChangedEventHandler? PropertyChanged;

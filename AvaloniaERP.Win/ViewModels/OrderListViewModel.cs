@@ -1,0 +1,25 @@
+﻿using System;
+using System.Linq;
+using AvaloniaERP.Core;
+using AvaloniaERP.Core.Entity;
+
+namespace AvaloniaERP.Win.ViewModels
+{
+    public class OrderListViewModel(EntityContext entityContext) : ListViewModelBase<Order, OrderRow>(entityContext)
+    {
+        protected override IQueryable<Order> ApplyFilter(IQueryable<Order> q, string? filter)
+        {
+            return q.Where(x => x.Customer.Name == filter);
+        }
+
+        protected override IOrderedQueryable<Order> ApplyOrder(IQueryable<Order> q)
+        {
+            return q.OrderBy(x => x.Customer);
+        }
+
+        protected override IQueryable<OrderRow> Project(IQueryable<Order> q)
+        {
+            return q.Select(x => new OrderRow(x));
+        }
+    }
+}

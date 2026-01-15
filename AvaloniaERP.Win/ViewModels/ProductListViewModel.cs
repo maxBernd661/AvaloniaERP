@@ -19,7 +19,7 @@ namespace AvaloniaERP.Win.ViewModels
 
         protected override IQueryable<ProductRow> Project(IQueryable<Product> q)
         {
-            return q.Select(x => new ProductRow(x.Name, x.PricePerUnit, x.Weight, x.IsAvailable));
+            return q.Select(x => new ProductRow(x));
         }
     }
 }

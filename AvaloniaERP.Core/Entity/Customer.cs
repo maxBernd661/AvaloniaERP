@@ -35,4 +35,25 @@ namespace AvaloniaERP.Core.Entity
             b.Navigation(x => x.Orders).UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
+
+    public class CustomerRow(string name, string email, string phone, string address, bool isActive) : RowBase<Customer>
+    {
+        public CustomerRow(Customer customer) : this(customer.Name, customer.Email, customer.Phone, customer.Address,
+            customer.IsActive){}
+
+        public string Name { get; set; } = name;
+
+        public string Email { get; set; } = email;
+
+        public string Phone { get; set; } = phone;
+
+        public string Address { get; set; } = address;
+
+        public string IsActive { get; set; } = isActive ? "Active" : "Inactive";
+
+        public override string AsString()
+        {
+            return $"{Name} ({Email}) - {IsActive}";
+        }
+    }
 }
