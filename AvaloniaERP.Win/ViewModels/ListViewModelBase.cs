@@ -6,12 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace AvaloniaERP.Win.ViewModels
 {
-    public abstract class ListViewModelBase<TEntity, TRow>(EntityContext entityContext) : INotifyPropertyChanged where TEntity: PersistentBase 
-                                                                                                                 where TRow : IEntityRow
+
+
+    public abstract class ListViewModelBase<TEntity, TRow>(EntityContext entityContext) : IListViewModel, INotifyPropertyChanged where TEntity: PersistentBase where TRow : IEntityRow
     {
         private readonly EntityContext context = entityContext;
 

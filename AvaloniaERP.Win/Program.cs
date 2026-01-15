@@ -48,7 +48,6 @@ namespace AvaloniaERP.Win
 
                     services.AddTransient<Views.ProductListView>();
 
-                    services.AddTransient(typeof(ListViewModel<>));
 
                     services.AddSingleton<IViewModelFactory, ViewModelFactory>();
 
