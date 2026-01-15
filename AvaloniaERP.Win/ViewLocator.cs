@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using AvaloniaERP.Win.ViewModels;
+using AvaloniaERP.Win.ViewModels.Base;
 
 namespace AvaloniaERP.Win
 {

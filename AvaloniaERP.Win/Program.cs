@@ -7,7 +7,10 @@ using Microsoft.Extensions.Hosting;
 using System;
 using AvaloniaERP.Core;
 using AvaloniaERP.Win.Services;
+using AvaloniaERP.Win.ViewModels.EntitySpecific;
+using AvaloniaERP.Win.Views.List;
 using Microsoft.EntityFrameworkCore.Metadata;
+using MainWindowViewModel = AvaloniaERP.Win.ViewModels.Base.MainWindowViewModel;
 
 namespace AvaloniaERP.Win
 {
@@ -46,7 +49,7 @@ namespace AvaloniaERP.Win
                     services.AddTransient<OrderListViewModel>();
                     services.AddTransient<ProductListViewModel>();
 
-                    services.AddTransient<Views.ProductListView>();
+                    services.AddTransient<ProductListView>();
 
 
                     services.AddSingleton<IViewModelFactory, ViewModelFactory>();

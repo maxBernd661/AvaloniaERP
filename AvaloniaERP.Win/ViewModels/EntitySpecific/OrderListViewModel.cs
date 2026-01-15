@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.ViewModels.Base;
 
-namespace AvaloniaERP.Win.ViewModels
+namespace AvaloniaERP.Win.ViewModels.EntitySpecific
 {
     public class OrderListViewModel(EntityContext entityContext) : ListViewModelBase<Order, OrderRow>(entityContext)
     {

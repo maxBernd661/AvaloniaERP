@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using AvaloniaERP.Core.Entity;
+﻿using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
 using CommunityToolkit.Mvvm.Input;
 
-namespace AvaloniaERP.Win.ViewModels
+namespace AvaloniaERP.Win.ViewModels.Base
 {
     public partial class MainWindowViewModel : ViewModelBase
     {

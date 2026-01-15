@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using AvaloniaERP.Core.Entity;
 
-namespace AvaloniaERP.Win.ViewModels
+namespace AvaloniaERP.Win.ViewModels.Dummy
 {
     public class OrderDummyListViewModel
     {

@@ -8,6 +8,7 @@ using AvaloniaERP.Win.ViewModels;
 using AvaloniaERP.Win.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MainWindowViewModel = AvaloniaERP.Win.ViewModels.Base.MainWindowViewModel;
 
 namespace AvaloniaERP.Win
 {

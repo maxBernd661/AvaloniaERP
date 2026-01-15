@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using AvaloniaERP.Win.ViewModels;
+using AvaloniaERP.Win.ViewModels.EntitySpecific;
 
-namespace AvaloniaERP.Win.Views;
+namespace AvaloniaERP.Win.Views.List;
 
 public partial class OrderListView : UserControl
 {

@@ -9,7 +9,7 @@ using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace AvaloniaERP.Win.ViewModels
+namespace AvaloniaERP.Win.ViewModels.Base
 {
 
 

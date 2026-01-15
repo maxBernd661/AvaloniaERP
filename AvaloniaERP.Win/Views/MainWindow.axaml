@@ -3,11 +3,12 @@
         xmlns:vm="using:AvaloniaERP.Win.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:base="clr-namespace:AvaloniaERP.Win.ViewModels.Base"
         mc:Ignorable="d"
         d:DesignWidth="1100"
         d:DesignHeight="700"
         x:Class="AvaloniaERP.Win.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        x:DataType="base:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaERP.Win">
 
