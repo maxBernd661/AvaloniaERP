@@ -1,11 +1,12 @@
 ﻿using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
-using AvaloniaERP.Win.Services;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AvaloniaERP.Win.ViewModels
 {
@@ -25,18 +26,43 @@ namespace AvaloniaERP.Win.ViewModels
         }
     }
 
-    public abstract class EntityDetailViewModel<TEntity>(IServiceProvider sp, PersistentBase? entity = null) : DetailViewModelBase where TEntity : PersistentBase
+    public abstract class EntityDetailViewModel<TEntity> : DetailViewModelBase where TEntity : PersistentBase
     {
-        protected IServiceProvider ServiceProvider = sp;
-        protected TEntity? Entity = (TEntity?)entity;
+        protected IServiceProvider ServiceProvider;
+        protected TEntity? Entity;
+
+        public ICommand SaveCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand ResetCommand { get; }
+        public ICommand CancelCommand { get; }
+
+        protected EntityDetailViewModel(IServiceProvider sp, PersistentBase? entity = null)
+        {
+            ServiceProvider = sp;
+            Entity = (TEntity?)entity;
+
+            SaveCommand = new RelayCommand(Save, CanSave);
+            ResetCommand = new RelayCommand(Reset, CanReset);
+            CancelCommand = new RelayCommand(Cancel, CanCancel);
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
+
+        }
 
         public Guid EntityId
         {
             get { return Entity?.Id ?? Guid.Empty; }
         }
 
-        protected abstract void Reset();
+        public string CreationTime
+        {
+            get { return Entity?.CreationTime.ToString("dd.MM.yyyy - hh:mm") ?? DateTime.MinValue.ToString("dd.MM.yyyy - hh:mm"); }
+        }
 
+        public string UpdateTime
+        {
+            get { return Entity?.UpdateTime.ToString("dd.MM.yyyy - hh:mm") ?? DateTime.MinValue.ToString("dd.MM.yyyy - hh:mm"); }
+        }
+        
         protected void Save()
         {
             Write();
@@ -49,6 +75,44 @@ namespace AvaloniaERP.Win.ViewModels
         {
             ValidateProperty(value, propName!);
         }
+
+        protected virtual bool CanSave()
+        {
+            return true;
+        }
+
+        protected virtual bool CanReset()
+        {
+            return true;
+        }
+
+        protected virtual bool CanCancel()
+        {
+            return true;
+        }
+
+        protected virtual bool CanDelete()
+        {
+            return true;
+        }
+
+        protected abstract void Reset();
+
+        protected abstract void Delete();
+
+        protected abstract void Cancel();
+    }
+
+    public class AsyncRelayCommand(Func<Task> execute) : ICommand
+    {
+        public bool CanExecute(object? parameter) => true;
+
+        public async void Execute(object? parameter)
+        {
+            await execute();
+        }
+
+        public event EventHandler? CanExecuteChanged;
     }
 }
  

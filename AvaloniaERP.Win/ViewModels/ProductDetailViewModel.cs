@@ -31,6 +31,16 @@ public partial class ProductDetailViewModel(IServiceProvider sp, Product? produc
 
     }
 
+    protected override void Delete()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void Cancel()
+    {
+        throw new NotImplementedException();
+    }
+
     protected override void Write()
     {
         Entity.Name = Name;
