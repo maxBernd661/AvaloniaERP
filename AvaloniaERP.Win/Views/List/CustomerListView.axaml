@@ -30,7 +30,8 @@
                     FontWeight="SemiBold"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    ToolTip.Tip="Add customer"/>
+                    ToolTip.Tip="Add customer"
+                    Command="{Binding AddCustomerCommand}"/>
         </Grid>
 
         <!-- Search -->

@@ -21,6 +21,18 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
         OrdersViewModel = new OrderListViewModel(sp.GetRequiredService<EntityContext>());
         OpenOrderCommand = new AsyncRelayCommand<OrderRow>(OpenOrder, row => row is not null);
     }
+    
+    public CustomerDetailViewModel(IServiceProvider sp) : base(sp, new Customer())
+    {
+        OrdersViewModel = new OrderListViewModel(sp.GetRequiredService<EntityContext>());
+        OpenOrderCommand = new AsyncRelayCommand<OrderRow>(OpenOrder, row => row is not null);
+        
+        Name = "";
+        Email = "";
+        Phone = "";
+        Address = "";
+        IsActive = true;
+    }
 
     public ICommand OpenOrderCommand { get; }
 

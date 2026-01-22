@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using AvaloniaERP.Core;
 using AvaloniaERP.Win.Services;
+using AvaloniaERP.Win.ViewModels.Base;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using AvaloniaERP.Win.Views.List;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -44,7 +45,9 @@ namespace AvaloniaERP.Win
                         options.UseSqlite(context.Configuration.GetConnectionString("Default"));
                     });
 
-                    services.AddTransient<MainWindowViewModel>();
+                    services.AddSingleton<MainWindowViewModel>();
+                    services.AddSingleton<INavigationService, NavigationService>();
+
                     services.AddTransient<CustomerListViewModel>();
                     services.AddTransient<OrderListViewModel>();
                     services.AddTransient<ProductListViewModel>();
