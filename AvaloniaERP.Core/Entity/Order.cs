@@ -5,9 +5,9 @@ namespace AvaloniaERP.Core.Entity
 {
     public class Order : PersistentBase
     {
-        public Guid CustomerId { get; private set; }
+        public Guid CustomerId { get; set; }
 
-        public Customer Customer { get; private set; } = null!;
+        public Customer Customer { get; set; } = null!;
 
         public OrderStatus Status { get; set; }
 

@@ -59,6 +59,11 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
         Address = Entity.Address;
         Phone = Entity.Phone;
         IsActive = Entity.IsActive;
+
+        foreach (Order row in Entity.Orders)
+        {
+            Orders.Add(new OrderRow(row));
+        }
     }
 
     protected override void Delete()

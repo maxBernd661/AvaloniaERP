@@ -9,6 +9,11 @@ namespace AvaloniaERP.Win.ViewModels.EntitySpecific
     {
         protected override IQueryable<Product> ApplyFilter(IQueryable<Product> q, string? filter)
         {
+            if (string.IsNullOrEmpty(filter))
+            {
+                return q;
+            }
+
             return q.Where(x => x.Name == filter);
         }
 

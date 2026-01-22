@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dummy="clr-namespace:AvaloniaERP.Win.ViewModels.Dummy"
+             xmlns:entitySpecific="clr-namespace:AvaloniaERP.Win.ViewModels.EntitySpecific"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="AvaloniaERP.Win.Views.List.OrderItemListView"
+             x:DataType="entitySpecific:OrderItemListViewModel">
+
+    <Grid RowDefinitions="Auto,*" Margin="12" RowSpacing="8">
+     
+
+        <TextBox Watermark="Search..." Text ="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
+
+      <ListBox x:Name="ListBox"
+               ItemsSource="{Binding Items}"
+               SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+               Grid.Row="1"
+               SelectionMode="Single, AlwaysSelected">
+          <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                  <VirtualizingStackPanel/>
+              </ItemsPanelTemplate>
+          </ListBox.ItemsPanel>
+
+          <ListBox.ItemTemplate>
+              <DataTemplate>
+                  <Border Padding="4">
+                      <DockPanel LastChildFill="True">
+                          <TextBlock Text="{Binding DisplayString}"/>
+                      </DockPanel>
+                  </Border>
+              </DataTemplate>
+          </ListBox.ItemTemplate>
+      </ListBox>
+  </Grid>
+</UserControl>

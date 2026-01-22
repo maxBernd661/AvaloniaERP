@@ -40,6 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\List\OrderItemListView.axaml.cs">
+      <DependentUpon>OrderItemListView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
