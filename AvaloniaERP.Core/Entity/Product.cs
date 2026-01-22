@@ -44,4 +44,12 @@ namespace AvaloniaERP.Core.Entity
             return $"{Name} - {PricePerUnit} - {Weight}kg - {IsAvailable}";
         }
     }
+
+    public class ProductQueryProfile : IQueryProfile<Product>
+    {
+        public IQueryable<Product> Apply(IQueryable<Product> query)
+        {
+            return query;
+        }
+    }
 }

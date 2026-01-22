@@ -13,8 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels.Base
 {
-
-
     public abstract class ListViewModelBase<TEntity, TRow>(IServiceProvider sp) : IListViewModel, INotifyPropertyChanged
         where TEntity : PersistentBase
         where TRow : IEntityRow

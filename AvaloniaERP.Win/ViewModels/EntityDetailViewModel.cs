@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels
 {
@@ -29,7 +30,7 @@ namespace AvaloniaERP.Win.ViewModels
     public abstract class EntityDetailViewModel<TEntity> : DetailViewModelBase where TEntity : PersistentBase
     {
         protected IServiceProvider ServiceProvider;
-        protected TEntity? Entity;
+        protected TEntity Entity;
 
         public ICommand SaveCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -46,10 +47,10 @@ namespace AvaloniaERP.Win.ViewModels
             }
             else
             {
-                Entity = (TEntity?)entity;
+                Entity = (TEntity)entity;
             }
 
-            SaveCommand = new RelayCommand(Save, CanSave);
+            SaveCommand = new AsyncRelayCommand(Save);
             ResetCommand = new RelayCommand(Reset, CanReset);
             CancelCommand = new RelayCommand(Cancel, CanCancel);
             DeleteCommand = new RelayCommand(Delete, CanDelete);
@@ -71,10 +72,19 @@ namespace AvaloniaERP.Win.ViewModels
             get { return Entity?.UpdateTime.ToString("dd.MM.yyyy - hh:mm") ?? DateTime.MinValue.ToString("dd.MM.yyyy - hh:mm"); }
         }
         
-        protected void Save()
+        protected async Task Save()
         {
             Write();
             ValidateAllProperties();
+
+            if (HasErrors)
+            {
+                return;
+            }
+
+            Type serviceType = typeof(DataManipulationService<>).MakeGenericType(typeof(TEntity));
+            IDataManipulationService service = (IDataManipulationService)ServiceProvider.GetRequiredService(serviceType);
+            await service.SaveAsync(Entity);
         }
 
         protected abstract void Write();
@@ -82,11 +92,6 @@ namespace AvaloniaERP.Win.ViewModels
         protected void Validate(object value, [CallerMemberName] string? propName = null)
         {
             ValidateProperty(value, propName!);
-        }
-
-        protected virtual bool CanSave()
-        {
-            return true;
         }
 
         protected virtual bool CanReset()

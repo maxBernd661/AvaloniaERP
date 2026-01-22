@@ -58,4 +58,12 @@ namespace AvaloniaERP.Core.Entity
             return $"{Product} x {Quantity} - {RowCost:C}, {RowWeight:N}";
         }
     }
+
+    public class OrderItemQueryProfile : IQueryProfile<OrderItem>
+    {
+        public IQueryable<OrderItem> Apply(IQueryable<OrderItem> query)
+        {
+            return query.Include(x => x.Product).Include(x => x.Order);
+        }
+    }
 }

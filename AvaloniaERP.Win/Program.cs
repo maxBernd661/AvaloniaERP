@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using AvaloniaERP.Core;
+using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
 using AvaloniaERP.Win.ViewModels.Base;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
@@ -56,10 +57,15 @@ namespace AvaloniaERP.Win
                     services.AddTransient<ProductDetailViewModel>();
                     services.AddTransient<OrderDetailViewModel>();
 
-                    services.AddTransient<ProductListView>();
+                    services.AddTransient<IQueryProfile<Product>, ProductQueryProfile>();
+                    services.AddTransient<IQueryProfile<Customer>, CustomerQueryProfile>();
+                    services.AddTransient<IQueryProfile<Order>, OrderQueryProfile>();
+                    services.AddTransient<IQueryProfile<OrderItem>, OrderItemQueryProfile>();
 
+                    services.AddTransient<IGraphMerger<Order>, OrderMerger>();
 
                     services.AddSingleton<IViewModelFactory, ViewModelFactory>();
+                    services.AddTransient(typeof(DataManipulationService<>));
 
 
                 });

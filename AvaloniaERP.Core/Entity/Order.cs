@@ -18,6 +18,22 @@ namespace AvaloniaERP.Core.Entity
             get { return items; }
         }
 
+        public void AddItem(OrderItem item)
+        {
+            if (items.Select(x => x.Id).Contains(item.Id))
+            {
+                items.Add(item);
+            }
+        }
+
+        public void RemoveItem(Guid id)
+        {
+            if (items.FirstOrDefault(x => x.Id == id) is { } item)
+            {
+                items.Remove(item);
+            }
+        }
+
     }
 
     public class OrderConfig : IEntityTypeConfiguration<Order>
@@ -72,5 +88,77 @@ namespace AvaloniaERP.Core.Entity
         Confirmed,
         Shipped,
         Cancelled
+    }
+
+    public class OrderQueryProfile : IQueryProfile<Order>
+    {
+        public IQueryable<Order> Apply(IQueryable<Order> query)
+        {
+            return query.Include(x => x.Customer).Include(x => x.Items).ThenInclude(x => x.Product);
+        }
+    }
+
+    public class OrderMerger : IGraphMerger<Order>
+    {
+        public async Task Merge(EntityContext context, Order tracked, Order incoming, CancellationToken ct = default)
+        {
+            if (tracked.CustomerId != incoming.CustomerId)
+            {
+                Customer? customer = await context.Set<Customer>().FindAsync([incoming.CustomerId], ct);
+
+                if (customer == null)
+                {
+                    return;
+                }
+
+                tracked.Customer =customer;
+            }
+
+            List<OrderItem> incomingItems = incoming.Items.ToList();
+            List<OrderItem> trackedItems = tracked.Items.ToList();
+
+            List<OrderItem> toRemove = trackedItems.Where(x => incomingItems.All(y => y.Id != x.Id)).ToList();
+
+            foreach (OrderItem rem in toRemove)
+            {
+                tracked.RemoveItem(rem.Id);
+                context.Remove(rem);
+            }
+
+            foreach (OrderItem item in incomingItems)
+            {
+                //item is new
+                if (item.CreationTime == DateTime.MinValue &&
+                    item.UpdateTime == DateTime.MinValue)
+                {
+                    item.OrderId = tracked.Id;
+                    item.Order = tracked;
+
+                    Product product = context.Set<Product>().Local.FirstOrDefault(p => p.Id == item.ProductId) ??
+                                    await context.Set<Product>().FirstAsync(x => x.Id == item.ProductId, ct);
+
+                    tracked.AddItem(item);
+                    context.Entry(item).State = EntityState.Added;
+                    continue;
+                }
+
+                OrderItem? toUpdate = trackedItems.FirstOrDefault(x => x.Id == item.Id);
+                if (toUpdate == null)
+                {
+                    continue;
+                }
+
+                context.Entry(toUpdate).CurrentValues.SetValues(item);
+
+                if (toUpdate.ProductId != item.ProductId)
+                {
+                    Product product = context.Set<Product>().Local.FirstOrDefault(p => p.Id == item.ProductId) ??
+                                       await context.Set<Product>().FirstAsync(x => x.Id == item.ProductId, ct);
+
+                    toUpdate.Product = product;
+                    toUpdate.ProductId = item.ProductId;
+                }
+            }
+        }
     }
 }

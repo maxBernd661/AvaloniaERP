@@ -58,4 +58,12 @@ namespace AvaloniaERP.Core.Entity
             return $"{Name} ({Email}) - {IsActive}";
         }
     }
+
+    public class CustomerQueryProfile : IQueryProfile<Customer>
+    {
+        public IQueryable<Customer> Apply(IQueryable<Customer> query)
+        {
+            return query.Include(x => x.Orders);
+        }
+    }
 }
