@@ -39,7 +39,15 @@ namespace AvaloniaERP.Win.ViewModels
         protected EntityDetailViewModel(IServiceProvider sp, PersistentBase? entity = null)
         {
             ServiceProvider = sp;
-            Entity = (TEntity?)entity;
+            
+            if(entity is null)
+            {
+                Entity = Activator.CreateInstance<TEntity>();
+            }
+            else
+            {
+                Entity = (TEntity?)entity;
+            }
 
             SaveCommand = new RelayCommand(Save, CanSave);
             ResetCommand = new RelayCommand(Reset, CanReset);

@@ -5,10 +5,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AvaloniaERP.Core;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels;
 
