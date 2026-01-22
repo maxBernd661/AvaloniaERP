@@ -1,0 +1,82 @@
+﻿using AvaloniaERP.Core.Entity;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using AvaloniaERP.Core;
+using AvaloniaERP.Win.ViewModels.EntitySpecific;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace AvaloniaERP.Win.ViewModels;
+
+public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
+{
+    public OrderListViewModel OrdersViewModel { get; }
+
+    public CustomerDetailViewModel(IServiceProvider sp, Customer customer) : base(sp, customer)
+    {
+        OrdersViewModel = new OrderListViewModel(sp.GetRequiredService<EntityContext>());
+        OpenOrderCommand = new AsyncRelayCommand<OrderRow>(OpenOrder, row => row is not null);
+    }
+
+    public ICommand OpenOrderCommand { get; }
+
+    public OrderRow? SelectedOrder { get; set; }
+
+    [ObservableProperty]
+    [Required, MaxLength(100)]
+    private string name = "";
+
+    [ObservableProperty]
+    [Required, MaxLength(100)]
+    private string email = "";
+
+    [ObservableProperty]
+    [Required, MaxLength(100)]
+    private string phone = "";
+
+    [ObservableProperty]
+    [Required, MaxLength(100)]
+    private string address = "";
+
+    [ObservableProperty]
+    private bool isActive;
+
+    public ObservableCollection<OrderRow> Orders { get; } = [];
+
+    private Task OpenOrder(OrderRow? row)
+    {
+        return Task.CompletedTask;
+    }
+
+    protected override void Reset()
+    {
+        Name = Entity.Name;
+        Email = Entity.Email;
+        Address = Entity.Address;
+        Phone = Entity.Phone;
+        IsActive = Entity.IsActive;
+    }
+
+    protected override void Delete()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void Cancel()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void Write()
+    {
+        Entity.Name = Name;
+        Entity.Email = Email;
+        Entity.Address = Address;
+        Entity.Phone = Phone;
+        Entity.IsActive = IsActive;
+    }
+}
