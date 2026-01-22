@@ -58,7 +58,11 @@ namespace AvaloniaERP.Win.ViewModels.Base
             IViewModel vm = factory.Create(typeof(Order), ViewKind.ListView);
             Current = vm;
         }
+
+
         
+
+
         [RelayCommand]
         public void ShowHome()
         {

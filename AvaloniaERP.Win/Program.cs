@@ -52,6 +52,10 @@ namespace AvaloniaERP.Win
                     services.AddTransient<OrderListViewModel>();
                     services.AddTransient<ProductListViewModel>();
 
+                    services.AddTransient<CustomerDetailViewModel>();
+                    services.AddTransient<ProductDetailViewModel>();
+                    services.AddTransient<OrderDetailViewModel>();
+
                     services.AddTransient<ProductListView>();
 
 

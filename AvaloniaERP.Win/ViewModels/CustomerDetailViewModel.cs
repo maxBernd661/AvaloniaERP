@@ -16,22 +16,16 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
 {
     public OrderListViewModel OrdersViewModel { get; }
 
-    public CustomerDetailViewModel(IServiceProvider sp, Customer customer) : base(sp, customer)
+    public CustomerDetailViewModel(IServiceProvider sp) : base(sp)
     {
-        OrdersViewModel = new OrderListViewModel(sp.GetRequiredService<EntityContext>());
+        OrdersViewModel = new OrderListViewModel(sp);
         OpenOrderCommand = new AsyncRelayCommand<OrderRow>(OpenOrder, row => row is not null);
     }
-    
-    public CustomerDetailViewModel(IServiceProvider sp) : base(sp, new Customer())
+
+    public CustomerDetailViewModel(IServiceProvider sp, Customer? customer) : base(sp, customer)
     {
-        OrdersViewModel = new OrderListViewModel(sp.GetRequiredService<EntityContext>());
+        OrdersViewModel = new OrderListViewModel(sp);
         OpenOrderCommand = new AsyncRelayCommand<OrderRow>(OpenOrder, row => row is not null);
-        
-        Name = "";
-        Email = "";
-        Phone = "";
-        Address = "";
-        IsActive = true;
     }
 
     public ICommand OpenOrderCommand { get; }

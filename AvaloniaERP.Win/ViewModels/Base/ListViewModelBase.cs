@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -8,14 +9,18 @@ using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels.Base
 {
 
 
-    public abstract class ListViewModelBase<TEntity, TRow>(EntityContext entityContext) : IListViewModel, INotifyPropertyChanged where TEntity: PersistentBase where TRow : IEntityRow
+    public abstract class ListViewModelBase<TEntity, TRow>(IServiceProvider sp) : IListViewModel, INotifyPropertyChanged
+        where TEntity : PersistentBase
+        where TRow : IEntityRow
     {
-        private readonly EntityContext context = entityContext;
+        public readonly IServiceProvider ServiceProvider = sp;
+        private readonly EntityContext context = sp.GetRequiredService<EntityContext>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -36,10 +36,12 @@ namespace AvaloniaERP.Core.Entity
         }
     }
 
-    public class CustomerRow(string name, string email, string phone, string address, bool isActive) : RowBase<Customer>
+    public class CustomerRow(Guid id, string name, string email, string phone, string address, bool isActive) : RowBase<Customer>
     {
-        public CustomerRow(Customer customer) : this(customer.Name, customer.Email, customer.Phone, customer.Address,
+        public CustomerRow(Customer customer) : this(customer.Id ,customer.Name, customer.Email, customer.Phone, customer.Address,
             customer.IsActive){}
+
+        public Guid Id { get; } = id;
 
         public string Name { get; set; } = name;
 

@@ -50,13 +50,32 @@ namespace AvaloniaERP.Win.Services
 
         public IDetailViewModel CreateDetailView(Type entityType, PersistentBase? existing = null)
         {
-            IDetailViewModel vm = entityType switch
-            {
-                _ when entityType == typeof(Product) => ActivatorUtilities.CreateInstance<ProductDetailViewModel>(sp, existing!),
-                _ => throw new ArgumentException(nameof(entityType))
-            };
+            IDetailViewModel? model;
 
-            return vm;
+            if (existing != null)
+            {
+
+                model = entityType switch
+                {
+                    _ when entityType == typeof(Order) => ActivatorUtilities.CreateInstance<OrderDetailViewModel>(sp, existing),
+                    _ when entityType == typeof(Customer) => ActivatorUtilities.CreateInstance<CustomerDetailViewModel>(sp, existing),
+                    _ when entityType == typeof(Product) => ActivatorUtilities.CreateInstance<ProductDetailViewModel>(sp, existing),
+                    _ => throw new ArgumentException(nameof(entityType))
+                };
+
+            }
+            else
+            {
+                model = entityType switch
+                {
+                    _ when entityType == typeof(Order) => ActivatorUtilities.CreateInstance<OrderDetailViewModel>(sp),
+                    _ when entityType == typeof(Customer) => ActivatorUtilities.CreateInstance<CustomerDetailViewModel>(sp),
+                    _ when entityType == typeof(Product) => ActivatorUtilities.CreateInstance<ProductDetailViewModel>(sp),
+                    _ => throw new ArgumentException(nameof(entityType))
+                };
+            }
+
+            return model;
         }
     }
 }

@@ -16,9 +16,9 @@ namespace AvaloniaERP.Win.ViewModels
 
         public OrderItemListViewModel ItemListViewModel { get; set; }
 
-        public OrderDetailViewModel(IServiceProvider sp, PersistentBase? entity = null) : base(sp, entity)
+        public OrderDetailViewModel(IServiceProvider sp, Order? entity = null) : base(sp, entity)
         {
-            ItemListViewModel = new OrderItemListViewModel(sp.GetRequiredService<EntityContext>());
+            ItemListViewModel = new OrderItemListViewModel(sp);
             OpenCustomerCommand = new RelayCommand<Guid>(OpenCustomer);
         }
 

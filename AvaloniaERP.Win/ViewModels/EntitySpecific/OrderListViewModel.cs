@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.ViewModels.Base;
 
 namespace AvaloniaERP.Win.ViewModels.EntitySpecific
 {
-    public class OrderListViewModel(EntityContext entityContext) : ListViewModelBase<Order, OrderRow>(entityContext)
+    public class OrderListViewModel(IServiceProvider sp) : ListViewModelBase<Order, OrderRow>(sp)
     {
         protected override IQueryable<Order> ApplyFilter(IQueryable<Order> q, string? filter)
         {
