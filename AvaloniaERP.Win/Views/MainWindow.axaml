@@ -18,7 +18,8 @@
         <Border Grid.Row="0"
                 Padding="12"
                 BorderThickness="0,0,0,1"
-                BorderBrush="{DynamicResource ThemeBorderLowBrush}">
+                BorderBrush="{DynamicResource ThemeBorderLowBrush}"
+                IsVisible="{Binding HasNoCurrent}">
             <DockPanel LastChildFill="True">
                 <StackPanel Orientation="Horizontal" Spacing="10" DockPanel.Dock="Left">
                     <TextBlock Text="AvaloniaERP" FontSize="18" FontWeight="SemiBold" Margin="0,5,10,0"/>
@@ -44,7 +45,7 @@
 
                     <StackPanel Spacing="8">
 
-                        <Button Content="Home" IsEnabled="False"/>
+                        <Button Content="Home" Command="{Binding ShowHomeCommand}"/>
                         
                         <Separator Margin="0,8"/>
                         
@@ -79,7 +80,9 @@
                         CornerRadius="12"
                         MaxWidth="650"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Top"
+                        IsVisible="{Binding HasNoCurrent}">
+                    
                     <StackPanel Spacing="10">
                         <TextBlock Text="Welcome"
                                    FontSize="22"
@@ -90,16 +93,18 @@
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <Button Content="Go to Products"
-                                    Command="{Binding ShowProducts}"/>
+                                    Command="{Binding ShowProductsCommand}"/>
                             <Button Content="Learn more" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
                 <!-- Actual routed content -->
-                <ContentControl Content="{Binding Current}"/>
+                <ContentControl Content="{Binding Current}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                IsVisible="{Binding HasCurrent}"/>
             </Grid>
-
         </Grid>
     </Grid>
 </Window>

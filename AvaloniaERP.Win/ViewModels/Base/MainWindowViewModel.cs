@@ -22,10 +22,20 @@ namespace AvaloniaERP.Win.ViewModels.Base
 
         public object? Current
         {
-            get { return current; }
-            set { SetField(ref current, value); }
-
+            get => current;
+            set
+            {
+                if (SetField(ref current, value))
+                {
+                    OnPropertyChanged(nameof(HasCurrent));
+                    OnPropertyChanged(nameof(HasNoCurrent));
+                }
+            }
         }
+
+
+        public bool HasCurrent => Current is not null;
+        public bool HasNoCurrent => !HasCurrent;
 
 
         [RelayCommand]
@@ -47,6 +57,12 @@ namespace AvaloniaERP.Win.ViewModels.Base
         {
             IViewModel vm = factory.Create(typeof(Order), ViewKind.ListView);
             Current = vm;
+        }
+        
+        [RelayCommand]
+        public void ShowHome()
+        {
+            Current = null;
         }
     }
 }
