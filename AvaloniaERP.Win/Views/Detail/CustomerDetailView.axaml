@@ -5,7 +5,7 @@
              xmlns:viewModels="clr-namespace:AvaloniaERP.Win.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="850"
              x:DataType="viewModels:CustomerDetailViewModel"
-             x:Class="AvaloniaERP.Win.CustomerDetailView">
+             x:Class="AvaloniaERP.Win.Views.Detail.CustomerDetailView">
 
     <UserControl.Styles>
         <Style Selector="TextBox, ComboBox, DatePicker">

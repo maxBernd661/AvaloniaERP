@@ -50,4 +50,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Detail\CustomerDetailView.axaml.cs">
+      <DependentUpon>CustomerDetailView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

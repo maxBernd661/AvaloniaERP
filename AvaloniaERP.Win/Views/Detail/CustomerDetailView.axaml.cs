@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using AvaloniaERP.Win.ViewModels;
 
-namespace AvaloniaERP.Win;
+namespace AvaloniaERP.Win.Views.Detail;
 
 public partial class CustomerDetailView : UserControl
 {
