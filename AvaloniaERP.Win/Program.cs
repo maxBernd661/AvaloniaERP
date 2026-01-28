@@ -12,7 +12,10 @@ using AvaloniaERP.Win.ViewModels.Base;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using AvaloniaERP.Win.Views.List;
 using Microsoft.EntityFrameworkCore.Metadata;
+using CustomerDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.CustomerDetailViewModel;
 using MainWindowViewModel = AvaloniaERP.Win.ViewModels.Base.MainWindowViewModel;
+using OrderDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.OrderDetailViewModel;
+using ProductDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.ProductDetailViewModel;
 
 namespace AvaloniaERP.Win
 {

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
 using AvaloniaERP.Win.ViewModels.Base;
+using AvaloniaERP.Win.ViewModels.Detail;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 

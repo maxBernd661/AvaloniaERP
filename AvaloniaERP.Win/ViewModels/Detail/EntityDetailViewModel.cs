@@ -1,15 +1,15 @@
-﻿using AvaloniaERP.Core.Entity;
-using AvaloniaERP.Win.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AvaloniaERP.Win.ViewModels
+namespace AvaloniaERP.Win.ViewModels.Detail
 {
     public interface IDetailViewModel : IViewModel
     {

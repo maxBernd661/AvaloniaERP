@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using AvaloniaERP.Win.ViewModels;
+using OrderDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.OrderDetailViewModel;
 
 namespace AvaloniaERP.Win.Views.Detail;
 

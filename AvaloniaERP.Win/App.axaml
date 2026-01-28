@@ -7,6 +7,7 @@
              xmlns:entitySpecific="clr-namespace:AvaloniaERP.Win.ViewModels.EntitySpecific"
              xmlns:list="clr-namespace:AvaloniaERP.Win.Views.List"
              xmlns:detail="clr-namespace:AvaloniaERP.Win.Views.Detail"
+             xmlns:vm1="clr-namespace:AvaloniaERP.Win.ViewModels.Detail"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -23,12 +24,12 @@
             <list:OrderListView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:CustomerDetailViewModel}">
+        <DataTemplate DataType="{x:Type vm1:CustomerDetailViewModel}">
             <detail:CustomerDetailView/>
         </DataTemplate>
 
         
-        <DataTemplate DataType="{x:Type vm:ProductDetailViewModel}">
+        <DataTemplate DataType="{x:Type vm1:ProductDetailViewModel}">
             <detail:ProductDetailView/>
         </DataTemplate>
 

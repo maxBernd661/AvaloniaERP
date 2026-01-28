@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using AvaloniaERP.Win.ViewModels;
+using ProductDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.ProductDetailViewModel;
 
 namespace AvaloniaERP.Win.Views.Detail;
 

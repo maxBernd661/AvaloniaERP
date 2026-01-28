@@ -3,8 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:AvaloniaERP.Win.ViewModels"
+             xmlns:detail="clr-namespace:AvaloniaERP.Win.ViewModels.Detail"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
-             x:DataType="viewModels:ProductDetailViewModel"
+             x:DataType="detail:ProductDetailViewModel"
              x:Class="AvaloniaERP.Win.Views.Detail.ProductDetailView">
 
     <UserControl.Styles>
