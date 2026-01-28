@@ -37,10 +37,10 @@ namespace AvaloniaERP.Core.Entity
         }
     }
 
-    public class OrderItemRow(string order, string product, int quantity, decimal rowCost, double rowWeight)
+    public class OrderItemRow(Guid id, string order, string product, int quantity, decimal rowCost, double rowWeight)
         : RowBase<OrderItem>
     {
-        public OrderItemRow(OrderItem orderItem) : this(orderItem.Order?.ToString() ?? string.Empty, orderItem.Product.Name, orderItem.Quantity, (orderItem.Product.PricePerUnit * orderItem.Quantity), (orderItem.Product.Weight * orderItem.Quantity))
+        public OrderItemRow(OrderItem orderItem) : this(orderItem.Id, orderItem.Order?.ToString() ?? string.Empty, orderItem.Product.Name, orderItem.Quantity, (orderItem.Product.PricePerUnit * orderItem.Quantity), (orderItem.Product.Weight * orderItem.Quantity))
         { }
 
         public string Order { get; set; } = order;
@@ -57,6 +57,8 @@ namespace AvaloniaERP.Core.Entity
         {
             return $"{Product} x {Quantity} - {RowCost:C}, {RowWeight:N}";
         }
+
+        public override Guid Id { get; } = id;
     }
 
     public class OrderItemQueryProfile : IQueryProfile<OrderItem>

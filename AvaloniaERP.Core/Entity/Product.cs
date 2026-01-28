@@ -13,7 +13,6 @@ namespace AvaloniaERP.Core.Entity
         public double Weight { get; set; }
 
         public bool IsAvailable { get; set; }
-
     }
 
     public class ProductConfig : IEntityTypeConfiguration<Product>
@@ -27,9 +26,11 @@ namespace AvaloniaERP.Core.Entity
         }
     }
 
-    public class ProductRow(string name, decimal price, double weight, bool isAvailable) : RowBase<Product>
+    public class ProductRow(Guid id, string name, decimal price, double weight, bool isAvailable) : RowBase<Product>
     {
-        public ProductRow(Product product) : this(product.Name, product.PricePerUnit, product.Weight, product.IsAvailable){}
+        public ProductRow(Product product) : this(product.Id, product.Name, product.PricePerUnit, product.Weight, product.IsAvailable)
+        {
+        }
 
         public string Name { get; set; } = name;
 
@@ -38,6 +39,8 @@ namespace AvaloniaERP.Core.Entity
         public string Weight { get; set; } = weight.ToString("N");
 
         public string IsAvailable { get; set; } = isAvailable ? "Available" : "Unavailable";
+
+        public override Guid Id { get; } = id;
 
         public override string AsString()
         {

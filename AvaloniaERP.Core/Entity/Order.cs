@@ -33,7 +33,6 @@ namespace AvaloniaERP.Core.Entity
                 items.Remove(item);
             }
         }
-
     }
 
     public class OrderConfig : IEntityTypeConfiguration<Order>
@@ -61,11 +60,12 @@ namespace AvaloniaERP.Core.Entity
         }
     }
 
-    public class OrderRow(string customer, OrderStatus status, decimal totalCost, double totalWeight)
+    public class OrderRow(Guid id, string customer, OrderStatus status, decimal totalCost, double totalWeight)
         : RowBase<Order>
     {
-        public OrderRow(Order order) : this(order.Customer.Name, order.Status,
-            order.Items.Sum(x => x.Product.PricePerUnit), order.Items.Sum(x => x.Product.Weight)){}
+        public OrderRow(Order order) : this(order.Id, order.Customer.Name, order.Status,
+            order.Items.Sum(x => x.Product.PricePerUnit), order.Items.Sum(x => x.Product.Weight))
+        { }
 
         public string Customer { get; set; } = customer;
 
@@ -79,6 +79,8 @@ namespace AvaloniaERP.Core.Entity
         {
             return $"{Customer} - {Status.ToString()}, {TotalCost:C}, {TotalWeight:N}";
         }
+
+        public override Guid Id { get; } = id;
     }
 
     public enum OrderStatus
@@ -111,7 +113,7 @@ namespace AvaloniaERP.Core.Entity
                     return;
                 }
 
-                tracked.Customer =customer;
+                tracked.Customer = customer;
             }
 
             List<OrderItem> incomingItems = incoming.Items.ToList();

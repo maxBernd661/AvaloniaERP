@@ -117,7 +117,7 @@
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Padding="4">
+                                <Border Padding="4" DoubleTapped="InputElement_OnDoubleTapped">
                                     <DockPanel LastChildFill="True">
                                         <TextBlock Text="{Binding DisplayString}"/>
                                     </DockPanel>

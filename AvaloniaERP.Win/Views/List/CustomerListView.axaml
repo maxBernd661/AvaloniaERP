@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:dummy="clr-namespace:AvaloniaERP.Win.ViewModels.Dummy"
              xmlns:entitySpecific="clr-namespace:AvaloniaERP.Win.ViewModels.EntitySpecific"
              mc:Ignorable="d"
              d:DesignWidth="800"
@@ -10,9 +9,6 @@
              x:Class="AvaloniaERP.Win.Views.List.CustomerListView"
              x:DataType="entitySpecific:CustomerListViewModel">
 
-    <Design.DataContext>
-        <dummy:CustomerDummyListViewModel/>
-    </Design.DataContext>
 
     <Grid RowDefinitions="Auto,Auto,*" Margin="12" RowSpacing="8">
         
@@ -54,7 +50,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="4">
+                    <Border Padding="4" DoubleTapped="InputElement_OnDoubleTapped">
                         <DockPanel LastChildFill="True">
                             <TextBlock Text="{Binding DisplayString}"/>
                         </DockPanel>

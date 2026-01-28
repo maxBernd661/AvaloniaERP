@@ -59,4 +59,8 @@
       <DependentUpon>CustomerDetailView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Dummy\" />
+  </ItemGroup>
 </Project>

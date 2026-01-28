@@ -38,10 +38,9 @@ namespace AvaloniaERP.Core.Entity
 
     public class CustomerRow(Guid id, string name, string email, string phone, string address, bool isActive) : RowBase<Customer>
     {
-        public CustomerRow(Customer customer) : this(customer.Id ,customer.Name, customer.Email, customer.Phone, customer.Address,
-            customer.IsActive){}
-
-        public Guid Id { get; } = id;
+        public CustomerRow(Customer customer) : this(customer.Id, customer.Name, customer.Email, customer.Phone, customer.Address,
+            customer.IsActive)
+        { }
 
         public string Name { get; set; } = name;
 
@@ -57,6 +56,8 @@ namespace AvaloniaERP.Core.Entity
         {
             return $"{Name} ({Email}) - {IsActive}";
         }
+
+        public override Guid Id { get; } = id;
     }
 
     public class CustomerQueryProfile : IQueryProfile<Customer>

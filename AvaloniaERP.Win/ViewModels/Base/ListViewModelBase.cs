@@ -8,19 +8,23 @@ using System.Threading.Tasks;
 using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
+using AvaloniaERP.Win.ViewModels.Detail;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels.Base
 {
-    public abstract class ListViewModelBase<TEntity, TRow>(IServiceProvider sp) : IListViewModel, INotifyPropertyChanged
+    public abstract class ListViewModelBase<TEntity, TRow> : IListViewModel, INotifyPropertyChanged
         where TEntity : PersistentBase
         where TRow : IEntityRow
     {
-        public readonly IServiceProvider ServiceProvider = sp;
-        private readonly EntityContext context = sp.GetRequiredService<EntityContext>();
+        public readonly IServiceProvider ServiceProvider;
+        private readonly EntityContext context;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public IAsyncRelayCommand OpenSelected { get; }
 
         protected void InitializeList()
         {
@@ -48,6 +52,13 @@ namespace AvaloniaERP.Win.ViewModels.Base
         }
 
         private string? filterString;
+
+        protected ListViewModelBase(IServiceProvider sp)
+        {
+            ServiceProvider = sp;
+            context = sp.GetRequiredService<EntityContext>();
+            OpenSelected = new AsyncRelayCommand(ShowSelectedAsync);
+        }
 
         public string? FilterString
         {
@@ -78,6 +89,30 @@ namespace AvaloniaERP.Win.ViewModels.Base
             {
                 //
             }
+        }
+
+        public async Task<TEntity?> GetEntity(Guid id)
+        {
+            return await context.Set<TEntity>().FindAsync(id);
+        }
+
+        protected async Task ShowSelectedAsync()
+        {
+            if (SelectedRow is not RowBase<TEntity> row)
+            {
+                return;
+            }
+
+            TEntity? item = await GetEntity(row.Id);
+            if (item is null)
+            {
+                return;
+            }
+
+            IDetailViewModel viewModel = ServiceProvider.GetRequiredService<IViewModelFactory>()
+                                                        .CreateDetailView(typeof(TEntity), item);
+
+            ServiceProvider.GetRequiredService<INavigationService>().Navigate(viewModel);
         }
 
         public ObservableCollection<TRow> Items { get; } = [];

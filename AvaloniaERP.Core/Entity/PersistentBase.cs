@@ -14,14 +14,17 @@
     public interface IEntityRow
     {
         string AsString();
+
+        Guid Id { get; }
     }
 
     public abstract class RowBase<TEntity> : IEntityRow where TEntity : PersistentBase
     {
         public Type EntityType = typeof(TEntity);
 
-
         public abstract string AsString();
+
+        public abstract Guid Id { get; }
 
         public string DisplayString
         {
@@ -38,5 +41,4 @@
     {
         Task Merge(EntityContext context, TEntity tracked, TEntity incoming, CancellationToken ct = default);
     }
-
 }
