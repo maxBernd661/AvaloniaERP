@@ -33,12 +33,12 @@ namespace AvaloniaERP.Win.ViewModels.EntitySpecific
 
         protected override IQueryable<Order> ApplyFilter(IQueryable<Order> q, string? filter)
         {
-            if(string.IsNullOrEmpty(filter))
+            if (string.IsNullOrEmpty(filter))
             {
                 return q;
             }
 
-            return q.Where(x => x.Customer.Name == filter);
+            return q.Where(x => x.Customer.Name.Contains(filter));
         }
 
         protected override IOrderedQueryable<Order> ApplyOrder(IQueryable<Order> q)

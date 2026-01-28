@@ -24,6 +24,7 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
     {
         OrdersViewModel = new OrderListViewModel(sp);
         OpenOrderCommand = new AsyncRelayCommand<OrderRow>(OpenOrder, row => row is not null);
+        Reset();
     }
 
     public ICommand OpenOrderCommand { get; }
@@ -56,7 +57,7 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
         return Task.CompletedTask;
     }
 
-    protected override void Reset()
+    protected override sealed void Reset()
     {
         Name = Entity.Name;
         Email = Entity.Email;

@@ -38,7 +38,7 @@ namespace AvaloniaERP.Win.ViewModels.EntitySpecific
                 return q;
             }
 
-            return q.Where(x => x.Name == filter);
+            return q.Where(x => x.Name.Contains(filter));
         }
 
         protected override IOrderedQueryable<Product> ApplyOrder(IQueryable<Product> q)

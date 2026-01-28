@@ -29,6 +29,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         {
             ItemListViewModel = new OrderItemListViewModel(sp);
             OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
+            Reset();
         }
 
         [ObservableProperty]
@@ -50,7 +51,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             nav.Navigate(view);
         }
 
-        protected override void Reset()
+        protected override sealed void Reset()
         {
             Items.Clear();
 

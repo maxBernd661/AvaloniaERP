@@ -11,8 +11,9 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
     {
     }
 
-    public ProductDetailViewModel(IServiceProvider sp, Product? product) : base(sp, product)
+    public ProductDetailViewModel(IServiceProvider sp, Product product) : base(sp, product)
     {
+        Reset();
     }
 
     [ObservableProperty]
@@ -30,7 +31,7 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
     [ObservableProperty]
     private bool isAvailable;
 
-    protected override void Reset()
+    protected override sealed void Reset()
     {
         Name = Entity.Name;
         PricePerUnit = Entity.PricePerUnit;
