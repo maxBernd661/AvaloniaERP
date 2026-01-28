@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using AvaloniaERP.Win.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,10 +7,7 @@ using System;
 using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
-using AvaloniaERP.Win.ViewModels.Base;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
-using AvaloniaERP.Win.Views.List;
-using Microsoft.EntityFrameworkCore.Metadata;
 using CustomerDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.CustomerDetailViewModel;
 using MainWindowViewModel = AvaloniaERP.Win.ViewModels.Base.MainWindowViewModel;
 using OrderDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.OrderDetailViewModel;
