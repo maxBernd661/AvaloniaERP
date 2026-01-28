@@ -28,7 +28,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 
     public abstract partial class EntityDetailViewModel<TEntity> : DetailViewModelBase where TEntity : PersistentBase
     {
-        protected IServiceProvider ServiceProvider;
+        public IServiceProvider ServiceProvider;
         protected TEntity Entity;
 
         public ICommand SaveCommand { get; }

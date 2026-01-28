@@ -51,7 +51,9 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         private void OpenCustomer()
         {
             if (Customer is null)
+            {
                 return;
+            }
 
             IViewModelFactory factory = ServiceProvider.GetRequiredService<IViewModelFactory>();
             INavigationService nav = ServiceProvider.GetRequiredService<INavigationService>();
