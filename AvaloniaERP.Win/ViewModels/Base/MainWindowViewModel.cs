@@ -8,14 +8,11 @@ namespace AvaloniaERP.Win.ViewModels.Base
     {
         private readonly IViewModelFactory factory = null!;
 
-        public MainWindowViewModel()
-        {
-        }
+        public MainWindowViewModel() { }
 
         public MainWindowViewModel(IViewModelFactory factory)
         {
             this.factory = factory;
-           // Current = factory.Create<Product>(ViewKind.ListView);
         }
 
         private object? current;
@@ -58,9 +55,6 @@ namespace AvaloniaERP.Win.ViewModels.Base
             IViewModel vm = factory.Create(typeof(Order), ViewKind.ListView);
             Current = vm;
         }
-
-
-        
 
 
         [RelayCommand]
