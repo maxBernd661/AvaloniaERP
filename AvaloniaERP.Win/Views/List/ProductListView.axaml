@@ -10,35 +10,60 @@
              x:Class="AvaloniaERP.Win.Views.List.ProductListView"
              x:DataType="entitySpecific:ProductListViewModel">
 
-    <Design.DataContext>
-        <dummy:ProductDummyListViewModel/>
-    </Design.DataContext>
+  <Design.DataContext>
+    <dummy:ProductDummyListViewModel/>
+  </Design.DataContext>
 
-    <Grid RowDefinitions="Auto,*" Margin="12" RowSpacing="8">
-     
+  <Grid RowDefinitions="Auto,Auto,*" Margin="12" RowSpacing="8">
 
-        <TextBox Watermark="Search..." Text ="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
+    <!-- Header -->
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+      <TextBlock Grid.Column="0"
+                 Text="Products"
+                 FontSize="20"
+                 FontWeight="SemiBold"
+                 VerticalAlignment="Center"/>
 
-      <ListBox x:Name="ListBox"
-               ItemsSource="{Binding Items}"
-               SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
-               Grid.Row="1"
-               SelectionMode="Single, AlwaysSelected">
-          <ListBox.ItemsPanel>
-              <ItemsPanelTemplate>
-                  <VirtualizingStackPanel/>
-              </ItemsPanelTemplate>
-          </ListBox.ItemsPanel>
+      <Button Grid.Column="1"
+              Content="+"
+              Width="34"
+              Height="34"
+              FontSize="18"
+              FontWeight="SemiBold"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Center"
+              ToolTip.Tip="Add product"
+              Command="{Binding OpenProductCommand}"/>
+    </Grid>
 
-          <ListBox.ItemTemplate>
-              <DataTemplate>
-                  <Border Padding="4">
-                      <DockPanel LastChildFill="True">
-                          <TextBlock Text="{Binding DisplayString}"/>
-                      </DockPanel>
-                  </Border>
-              </DataTemplate>
-          </ListBox.ItemTemplate>
-      </ListBox>
+    <!-- Search -->
+    <TextBox Grid.Row="1"
+             Watermark="Search..."
+             Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
+
+    <!-- List -->
+    <ListBox x:Name="ListBox"
+             Grid.Row="2"
+             ItemsSource="{Binding Items}"
+             SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+             SelectionMode="Single, AlwaysSelected">
+
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel/>
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Padding="4">
+            <DockPanel LastChildFill="True">
+              <TextBlock Text="{Binding DisplayString}"/>
+            </DockPanel>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+
+    </ListBox>
   </Grid>
 </UserControl>

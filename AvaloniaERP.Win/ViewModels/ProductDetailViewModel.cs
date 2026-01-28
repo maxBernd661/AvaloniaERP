@@ -1,12 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using AvaloniaERP.Core.Entity;
+﻿using AvaloniaERP.Core.Entity;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AvaloniaERP.Win.ViewModels;
 
-public partial class ProductDetailViewModel(IServiceProvider sp, Product? product) : EntityDetailViewModel<Product>(sp, product)
+public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
 {
+    public ProductDetailViewModel(IServiceProvider sp) : base(sp)
+    {
+    }
+
+    public ProductDetailViewModel(IServiceProvider sp, Product? product) : base(sp, product)
+    {
+    }
+
     [ObservableProperty]
     [Required, MaxLength(100)]
     private string name = "";
@@ -28,7 +36,7 @@ public partial class ProductDetailViewModel(IServiceProvider sp, Product? produc
         PricePerUnit = Entity.PricePerUnit;
         Weight = Entity.Weight;
         IsAvailable = Entity.IsAvailable;
-
+    
     }
 
     protected override void Delete()

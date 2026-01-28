@@ -1,13 +1,34 @@
 ﻿using System;
 using System.Linq;
-using AvaloniaERP.Core;
+using System.Windows.Input;
 using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
 using AvaloniaERP.Win.ViewModels.Base;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels.EntitySpecific
 {
-    public class OrderListViewModel(IServiceProvider sp) : ListViewModelBase<Order, OrderRow>(sp)
+    public class OrderListViewModel : ListViewModelBase<Order, OrderRow>
     {
+        public ICommand OpenOrderCommand { get; }
+
+        public OrderListViewModel(IServiceProvider sp) : base(sp)
+        {
+            OpenOrderCommand = new RelayCommand(ShowOrder);
+        }
+
+        private void ShowOrder()
+        {
+            IDetailViewModel view = ServiceProvider
+                .GetRequiredService<IViewModelFactory>()
+                .CreateDetailView(typeof(Order));
+
+            ServiceProvider
+                .GetRequiredService<INavigationService>()
+                .Navigate(view);
+        }
+
         protected override IQueryable<Order> ApplyFilter(IQueryable<Order> q, string? filter)
         {
             if(string.IsNullOrEmpty(filter))

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,54 +14,70 @@ namespace AvaloniaERP.Win.ViewModels
 {
     public partial class OrderDetailViewModel : EntityDetailViewModel<Order>
     {
-        public ICommand OpenCustomerCommand;
+        public OrderItemListViewModel ItemListViewModel { get; }
 
-        public OrderItemListViewModel ItemListViewModel { get; set; }
+        public ICommand OpenCustomerCommand { get; }
 
-        public OrderDetailViewModel(IServiceProvider sp, Order? entity = null) : base(sp, entity)
+        public ObservableCollection<OrderItemRow> Items { get; } = [];
+
+        public OrderDetailViewModel(IServiceProvider sp) : base(sp)
         {
             ItemListViewModel = new OrderItemListViewModel(sp);
-            OpenCustomerCommand = new RelayCommand<Guid>(OpenCustomer);
+            OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
+        }
+
+        public OrderDetailViewModel(IServiceProvider sp, Order? entity) : base(sp, entity)
+        {
+            ItemListViewModel = new OrderItemListViewModel(sp);
+            OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
         }
 
         [ObservableProperty]
-        private Customer customer;
+        [Required]
+        private Customer? customer;
+
+        partial void OnCustomerChanged(Customer? value)
+        {
+            (OpenCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
+        }
 
         [ObservableProperty]
         private OrderStatus status;
 
-        public ObservableCollection<OrderItemRow> Items { get; }
-
-        private void OpenCustomer(Guid id)
+        private void OpenCustomer()
         {
+            if (Customer is null)
+                return;
 
-        }
+            var factory = ServiceProvider.GetRequiredService<IViewModelFactory>();
+            var nav = ServiceProvider.GetRequiredService<INavigationService>();
 
-        protected override void Write()
-        {
-            Entity.Customer = Customer;
-            Entity.Status = Status;
-
+            var view = factory.CreateDetailView(typeof(Customer));
+            nav.Navigate(view);
         }
 
         protected override void Reset()
         {
+            Items.Clear();
+
             Customer = Entity.Customer;
             Status = Entity.Status;
-            foreach (OrderItem item in Entity.Items)
+
+            foreach (var item in Entity.Items)
             {
                 Items.Add(new OrderItemRow(item));
             }
         }
 
-        protected override void Delete()
+        protected override void Write()
         {
-            throw new NotImplementedException();
+            if (Customer is not null)
+                Entity.Customer = Customer;
+
+            Entity.Status = Status;
         }
 
-        protected override void Cancel()
-        {
-            throw new NotImplementedException();
-        }
+        protected override void Delete() => throw new NotImplementedException();
+        protected override void Cancel() => throw new NotImplementedException();
     }
 }
