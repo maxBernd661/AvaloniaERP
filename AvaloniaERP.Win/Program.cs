@@ -25,6 +25,7 @@ namespace AvaloniaERP.Win
         {
             SQLitePCL.Batteries_V2.Init();
             AppHost = CreateHostBuilder(args).Build();
+            MigrateDatabase(AppHost);
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
 
@@ -65,8 +66,6 @@ namespace AvaloniaERP.Win
 
                     services.AddSingleton<IViewModelFactory, ViewModelFactory>();
                     services.AddTransient(typeof(DataManipulationService<>));
-
-
                 });
         }
 
@@ -77,6 +76,13 @@ namespace AvaloniaERP.Win
                 .UsePlatformDetect()
                 .WithInterFont()
                 .LogToTrace();
+        }
+
+        private static void MigrateDatabase(IHost host)
+        {
+            using IServiceScope scope = host.Services.CreateScope();
+            EntityContext context = scope.ServiceProvider.GetRequiredService<EntityContext>();
+            context.Database.Migrate();
         }
     }
 }
