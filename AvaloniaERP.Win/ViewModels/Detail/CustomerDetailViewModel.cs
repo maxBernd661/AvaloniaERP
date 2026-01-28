@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AvaloniaERP.Win.ViewModels.Detail;
 
@@ -73,7 +77,18 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
 
     protected override void Delete()
     {
-        throw new NotImplementedException();
+        EntityContext context = ServiceProvider.GetRequiredService<EntityContext>();
+        Customer? existing = context.Set<Customer>().FirstOrDefault(x => x.Id == EntityId);
+        if (existing is null)
+        {
+            return;
+        }
+
+        context.Set<Customer>().Remove(existing);
+
+        context.SaveChanges();
+        IListViewModel vm = ServiceProvider.GetRequiredService<IViewModelFactory>().CreateListView(typeof(Customer));
+        ServiceProvider.GetRequiredService<INavigationService>().Navigate(vm);
     }
 
     protected override void Write()

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using AvaloniaERP.Core;
 using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaERP.Win.ViewModels.Detail;
 
@@ -41,7 +45,18 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
 
     protected override void Delete()
     {
-        throw new NotImplementedException();
+        EntityContext context = ServiceProvider.GetRequiredService<EntityContext>();
+        Product? existing = context.Set<Product>().FirstOrDefault(x => x.Id == EntityId);
+        if (existing is null)
+        {
+            return;
+        }
+
+        context.Set<Product>().Remove(existing);
+
+        context.SaveChanges();
+        IListViewModel vm = ServiceProvider.GetRequiredService<IViewModelFactory>().CreateListView(typeof(Product));
+        ServiceProvider.GetRequiredService<INavigationService>().Navigate(vm);
     }
 
     protected override void Write()

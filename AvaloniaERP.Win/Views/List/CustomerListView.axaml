@@ -12,21 +12,26 @@
 
     <Grid RowDefinitions="Auto,Auto,*" Margin="12" RowSpacing="8">
         
-        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="*,*,Auto, Auto">
             <TextBlock Grid.Column="0" Text="Customers"
                                       FontSize="20"
                                       FontWeight="SemiBold"
                                       VerticalAlignment="Center"/>
             
             <Button Grid.Column="1"
-                    Content="+"
-                    Width="34"
-                    Height="34"
-                    FontSize="18"
+                    Content="New"
+                    Margin="4"
                     FontWeight="SemiBold"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    ToolTip.Tip="Add customer"
+                    Command="{Binding OpenCustomerCommand}"/>
+
+            <Button Grid.Column="2"
+                    Content="Delete"
+                    Margin="4"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Command="{Binding OpenCustomerCommand}"/>
         </Grid>
 

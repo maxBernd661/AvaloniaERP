@@ -60,12 +60,12 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 
         public string CreationTime
         {
-            get { return Entity?.CreationTime.ToString("dd.MM.yyyy - hh:mm") ?? DateTime.MinValue.ToString("dd.MM.yyyy - hh:mm"); }
+            get { return Entity.CreationTime.ToString("dd.MM.yyyy - hh:mm"); }
         }
 
         public string UpdateTime
         {
-            get { return Entity?.UpdateTime.ToString("dd.MM.yyyy - hh:mm") ?? DateTime.MinValue.ToString("dd.MM.yyyy - hh:mm"); }
+            get { return Entity.UpdateTime.ToString("dd.MM.yyyy - hh:mm"); }
         }
 
         protected async Task Save()
@@ -96,6 +96,8 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             {
                 //todo
             }
+
+            Reset();
         }
 
         protected abstract void Write();
@@ -110,9 +112,9 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             return true;
         }
 
-        protected virtual bool CanDelete()
+        protected bool CanDelete()
         {
-            return true;
+            return Entity.CreationTime != DateTime.MinValue;
         }
 
         protected abstract void Reset();

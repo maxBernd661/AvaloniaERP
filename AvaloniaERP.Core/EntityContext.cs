@@ -1,5 +1,6 @@
 ﻿using AvaloniaERP.Core.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AvaloniaERP.Core
 {
@@ -35,11 +36,10 @@ namespace AvaloniaERP.Core
             return base.SaveChangesAsync(cancellationToken);
         }
 
-
         private void UpdateTimestamp()
         {
             DateTime now = DateTime.Now;
-            foreach (var entry in ChangeTracker.Entries<PersistentBase>())
+            foreach (EntityEntry<PersistentBase> entry in ChangeTracker.Entries<PersistentBase>())
             {
                 switch (entry.State)
                 {

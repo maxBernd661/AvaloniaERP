@@ -12,23 +12,27 @@
   <Grid RowDefinitions="Auto,Auto,*" Margin="12" RowSpacing="8">
 
     <!-- Header -->
-    <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
-      <TextBlock Grid.Column="0"
-                 Text="Products"
-                 FontSize="20"
-                 FontWeight="SemiBold"
-                 VerticalAlignment="Center"/>
+    <Grid Grid.Row="0" ColumnDefinitions="*,*,Auto, Auto">
+        <TextBlock Grid.Column="0" Text="Customers"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"/>
+            
+        <Button Grid.Column="1"
+                Content="New"
+                Margin="4"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding OpenProductCommand}"/>
 
-      <Button Grid.Column="1"
-              Content="+"
-              Width="34"
-              Height="34"
-              FontSize="18"
-              FontWeight="SemiBold"
-              HorizontalAlignment="Right"
-              VerticalAlignment="Center"
-              ToolTip.Tip="Add product"
-              Command="{Binding OpenProductCommand}"/>
+        <Button Grid.Column="2"
+                Content="Delete"
+                Margin="4"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding OpenProductCommand}"/>
     </Grid>
 
     <!-- Search -->
