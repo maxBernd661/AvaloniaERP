@@ -78,11 +78,13 @@ namespace AvaloniaERP.Win.ViewModels.Base
             {
                 Items.Clear();
 
-                IQueryable<TEntity> set = context.Set<TEntity>().AsNoTracking();
+                IQueryable<TEntity> set = context.Set<TEntity>();
+                IQueryProfile<TEntity> queryProfile = ServiceProvider.GetRequiredService<IQueryProfile<TEntity>>();
+                set = queryProfile.Apply(set);
                 IQueryable<TEntity> query = ApplyFilter(set, FilterString);
                 query = ApplyOrder(query);
                 List<TRow> rows = await Project(query).ToListAsync();
-                foreach (var row in rows)
+                foreach (TRow row in rows)
                 {
                     Items.Add(row);
                 }

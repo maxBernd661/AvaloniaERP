@@ -20,7 +20,7 @@ namespace AvaloniaERP.Core.Entity
 
         public void AddItem(OrderItem item)
         {
-            if (items.Select(x => x.Id).Contains(item.Id))
+            if (!items.Select(x => x.Id).Contains(item.Id))
             {
                 items.Add(item);
             }
@@ -63,8 +63,8 @@ namespace AvaloniaERP.Core.Entity
     public class OrderRow(Guid id, string customer, OrderStatus status, decimal totalCost, double totalWeight)
         : RowBase<Order>
     {
-        public OrderRow(Order order) : this(order.Id, order.Customer.Name, order.Status,
-            order.Items.Sum(x => x.Product.PricePerUnit), order.Items.Sum(x => x.Product.Weight))
+        public OrderRow(Order order) : this(order.Id, order.Customer?.Name ?? string.Empty, order.Status,
+            order.Items?.Sum(x => x.Product.PricePerUnit) ?? 0, order.Items?.Sum(x => x.Product.Weight) ?? 0)
         { }
 
         public string Customer { get; set; } = customer;

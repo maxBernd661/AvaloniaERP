@@ -89,7 +89,6 @@
                     </Grid>
 
                     <TextBlock Text="Status" Classes="field-label"/>
-                    <!-- Minimal, works without extra enum binding helpers -->
                     <TextBox Text="{Binding Status, Mode=TwoWay}" Watermark="Draft" IsReadOnly="True"/>
                 </StackPanel>
 
@@ -104,8 +103,30 @@
                 <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
                     <TextBlock Text="Items" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,8"/>
 
+                    
+                    <Grid ColumnDefinitions="2*,*,Auto,Auto" ColumnSpacing="10" RowDefinitions="Auto" Margin="0,0,0,8">
+                        <ComboBox Grid.Column="0"
+                                  ItemsSource="{Binding Products}"
+                                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                                  DisplayMemberBinding="{Binding Name}"/>
+                        <NumericUpDown Grid.Column="1"
+                                       Value="{Binding SelectedQuantity, Mode=TwoWay}"
+                                       Minimum="1"
+                                       Maximum="10000"/>
+                        <Button Grid.Column="2"
+                                Content="Add"
+                                Classes="primary"
+                                Command="{Binding AddItemCommand}"/>
+                        <Button Grid.Column="3"
+                                Content="Remove"
+                                Classes="primary"
+                                Command="{Binding RemoveItemCommand}"/>
+                    </Grid>
+
+
                     <ListBox x:Name="ListBox"
                              ItemsSource="{Binding Items}"
+                             SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                              SelectionMode="Single, AlwaysSelected"
                              MinHeight="150"
                              DoubleTapped="ListBox_OnDoubleTapped">

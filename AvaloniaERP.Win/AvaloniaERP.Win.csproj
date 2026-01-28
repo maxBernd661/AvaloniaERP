@@ -12,6 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaXaml Remove="ViewModels\Dummy\**" />
+    <Compile Remove="ViewModels\Dummy\**" />
+    <EmbeddedResource Remove="ViewModels\Dummy\**" />
+    <None Remove="ViewModels\Dummy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.3.9" />
     <PackageReference Include="Avalonia.Desktop" Version="11.3.9" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.9" />
@@ -58,9 +65,5 @@
     <Compile Update="Views\Detail\CustomerDetailView.axaml.cs">
       <DependentUpon>CustomerDetailView.axaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Dummy\" />
   </ItemGroup>
 </Project>

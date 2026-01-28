@@ -21,6 +21,8 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         public OrderItemListViewModel ItemListViewModel { get; }
 
         public ICommand OpenCustomerCommand { get; }
+        public IAsyncRelayCommand AddItemCommand { get; }
+        public IRelayCommand RemoveItemCommand { get; }
 
         public ObservableCollection<OrderItemRow> Items { get; } = [];
 
@@ -28,15 +30,21 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         {
             ItemListViewModel = new OrderItemListViewModel(sp);
             OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
+            AddItemCommand = new AsyncRelayCommand(AddItem);
+            RemoveItemCommand = new RelayCommand(RemoveSelectedItem, () => SelectedItem is not null);
             _ = LoadCustomers();
+            _ = LoadProducts();
         }
 
         public OrderDetailViewModel(IServiceProvider sp, Order? entity) : base(sp, entity)
         {
             ItemListViewModel = new OrderItemListViewModel(sp);
             OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
-            Reset();
+            AddItemCommand = new AsyncRelayCommand(AddItem);
+            RemoveItemCommand = new RelayCommand(RemoveSelectedItem, () => SelectedItem is not null);
             _ = LoadCustomers();
+            _ = LoadProducts();
+            Reset();
         }
 
         [ObservableProperty]
@@ -45,6 +53,19 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 
         [ObservableProperty]
         private OrderStatus status;
+
+        public ObservableCollection<Product> Products { get; } = [];
+
+        [ObservableProperty]
+        [Required]
+        private Product? selectedProduct;
+
+        [ObservableProperty]
+        [Range(1, int.MaxValue)]
+        private int selectedQuantity = 1;
+
+        [ObservableProperty]
+        private OrderItemRow? selectedItem;
 
         public ObservableCollection<Customer> Customers { get; } = [];
 
@@ -75,6 +96,8 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             {
                 Items.Add(new OrderItemRow(item));
             }
+
+            SelectedItem = Items.FirstOrDefault();
         }
 
         protected override void Write()
@@ -85,6 +108,70 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             }
 
             Entity.Status = Status;
+            Entity.CustomerId = Customer?.Id ?? Entity.CustomerId;
+        }
+
+        private Task AddItem()
+        {
+            ValidateProperty(SelectedProduct, nameof(SelectedProduct));
+            ValidateProperty(SelectedQuantity, nameof(SelectedQuantity));
+
+            if (HasErrors || SelectedProduct is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            OrderItem? existing = Entity.Items.FirstOrDefault(x => x.ProductId == SelectedProduct.Id);
+            if (existing is not null)
+            {
+                existing.Quantity += SelectedQuantity;
+                OrderItemRow? row = Items.FirstOrDefault(x => x.Id == existing.Id);
+                if (row is not null)
+                {
+                    int rowIndex = Items.IndexOf(row);
+                    Items[rowIndex] = new OrderItemRow(existing);
+                    SelectedItem = Items[rowIndex];
+                }
+                else
+                {
+                    Items.Add(new OrderItemRow(existing));
+                    SelectedItem = Items.LastOrDefault();
+                }
+
+                return Task.CompletedTask;
+            }
+
+            OrderItem item = new()
+            {
+                ProductId = SelectedProduct.Id,
+                Product = SelectedProduct,
+                Quantity = SelectedQuantity,
+                Order = Entity,
+                OrderId = Entity.Id
+            };
+
+            Entity.AddItem(item);
+            Items.Add(new OrderItemRow(item));
+            SelectedItem = Items.LastOrDefault();
+
+            return Task.CompletedTask;
+        }
+
+        private void RemoveSelectedItem()
+        {
+            if (SelectedItem is null)
+            {
+                return;
+            }
+
+            OrderItem? existing = Entity.Items.FirstOrDefault(x => x.Id == SelectedItem.Id);
+            if (existing is not null)
+            {
+                Entity.RemoveItem(existing.Id);
+            }
+
+            Items.Remove(SelectedItem);
+            SelectedItem = Items.FirstOrDefault();
         }
 
         protected override void Delete()
@@ -137,6 +224,32 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             if (match is not null && !ReferenceEquals(match, Customer))
             {
                 Customer = match;
+            }
+        }
+
+        private async Task LoadProducts()
+        {
+            try
+            {
+                EntityContext context = ServiceProvider.GetRequiredService<EntityContext>();
+                List<Product> products = await context.Products.AsNoTracking()
+                                                      .OrderBy(x => x.Name)
+                                                      .ToListAsync();
+
+                Products.Clear();
+                foreach (Product product in products)
+                {
+                    Products.Add(product);
+                }
+
+                if (SelectedProduct is null)
+                {
+                    SelectedProduct = Products.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                //todo
             }
         }
     }
