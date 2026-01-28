@@ -13,7 +13,7 @@ public partial class CustomerDetailView : UserControl
         InitializeComponent();
     }
 
-    public CustomerDetailView(CustomerDetailViewModel vm)
+    public CustomerDetailView(CustomerDetailViewModel vm) : this()
     {
         DataContext = vm;
     }

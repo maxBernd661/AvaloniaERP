@@ -11,7 +11,7 @@ public partial class ProductDetailView : UserControl
         InitializeComponent();
     }
 
-    public ProductDetailView(ProductDetailViewModel vm)
+    public ProductDetailView(ProductDetailViewModel vm) : this()
     {
         DataContext = vm;
     }

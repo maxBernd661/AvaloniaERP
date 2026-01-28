@@ -28,9 +28,12 @@
             <detail:CustomerDetailView/>
         </DataTemplate>
 
-        
         <DataTemplate DataType="{x:Type vm1:ProductDetailViewModel}">
             <detail:ProductDetailView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm1:OrderDetailViewModel}">
+            <detail:OrderDetailView/>
         </DataTemplate>
 
     </Application.DataTemplates>
