@@ -40,4 +40,4 @@ Das Programm stellt ein ERP System für das erstellen von Kunden, Artikeln und B
 ## Unit Tests
 * Was: Setzen von Zeitstempeln und Soft-Delete bei EntityContext.SaveChanges()
 * Warum: Bilded die Logik für Auditing und konsistente Datenhaltung
-* Wie: `dotnet test AvaloniaERP.Core.Tests/AvaloniaERP.Core.Tests.csproj`
+* Wie: `dotnet test AvaloniaERP.Core.Test/AvaloniaERP.Core.Test.csproj`

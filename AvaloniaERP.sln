@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaERP.Win", "Avalonia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaERP.Core", "AvaloniaERP.Core\AvaloniaERP.Core.csproj", "{17A165A5-6D7E-44B0-86BA-EC9721A8CFD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaERP.Core.Test", "AvaloniaERP.Core.Test\AvaloniaERP.Core.Test.csproj", "{B322FA3B-F11E-4818-B914-6C69059B76AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{17A165A5-6D7E-44B0-86BA-EC9721A8CFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17A165A5-6D7E-44B0-86BA-EC9721A8CFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17A165A5-6D7E-44B0-86BA-EC9721A8CFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B322FA3B-F11E-4818-B914-6C69059B76AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B322FA3B-F11E-4818-B914-6C69059B76AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B322FA3B-F11E-4818-B914-6C69059B76AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B322FA3B-F11E-4818-B914-6C69059B76AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
