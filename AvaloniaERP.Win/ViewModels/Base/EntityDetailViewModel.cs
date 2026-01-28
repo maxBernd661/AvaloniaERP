@@ -13,10 +13,9 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 {
     public interface IDetailViewModel : IViewModel
     {
-
     }
 
-    public abstract class DetailViewModelBase : ObservableValidator,  IDetailViewModel
+    public abstract class DetailViewModelBase : ObservableValidator, IDetailViewModel
     {
         protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
@@ -35,13 +34,12 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         public ICommand SaveCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand ResetCommand { get; }
-        public ICommand CancelCommand { get; }
 
         protected EntityDetailViewModel(IServiceProvider sp, PersistentBase? entity = null)
         {
             ServiceProvider = sp;
-            
-            if(entity is null)
+
+            if (entity is null)
             {
                 Entity = Activator.CreateInstance<TEntity>();
             }
@@ -52,9 +50,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 
             SaveCommand = new AsyncRelayCommand(Save);
             ResetCommand = new RelayCommand(Reset, CanReset);
-            CancelCommand = new RelayCommand(Cancel, CanCancel);
             DeleteCommand = new RelayCommand(Delete, CanDelete);
-
         }
 
         public Guid EntityId
@@ -71,7 +67,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         {
             get { return Entity?.UpdateTime.ToString("dd.MM.yyyy - hh:mm") ?? DateTime.MinValue.ToString("dd.MM.yyyy - hh:mm"); }
         }
-        
+
         protected async Task Save()
         {
             Write();
@@ -80,7 +76,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
                 ValidateAllProperties();
             }
             catch (Exception ex)
-            { 
+            {
                 //todo
             }
 
@@ -114,11 +110,6 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             return true;
         }
 
-        protected virtual bool CanCancel()
-        {
-            return true;
-        }
-
         protected virtual bool CanDelete()
         {
             return true;
@@ -127,8 +118,5 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         protected abstract void Reset();
 
         protected abstract void Delete();
-
-        protected abstract void Cancel();
     }
 }
- 

@@ -36,15 +36,9 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
         PricePerUnit = Entity.PricePerUnit;
         Weight = Entity.Weight;
         IsAvailable = Entity.IsAvailable;
-    
     }
 
     protected override void Delete()
-    {
-        throw new NotImplementedException();
-    }
-
-    protected override void Cancel()
     {
         throw new NotImplementedException();
     }

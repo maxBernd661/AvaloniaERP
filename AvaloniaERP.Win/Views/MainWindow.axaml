@@ -13,92 +13,58 @@
         Title="AvaloniaERP.Win">
 
     <Window.Styles>
-        <Style Selector="TextBox, ComboBox, DatePicker">
-            <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="MinHeight" Value="32"/>
-        </Style>
-
-        <Style Selector="TextBlock.field-label">
-            <Setter Property="Margin" Value="0,4,0,4"/>
-            <Setter Property="Opacity" Value="0.85"/>
-            <Setter Property="FontSize" Value="12"/>
-        </Style>
-
-        <Style Selector="Button.primary">
-            <Setter Property="MinWidth" Value="110"/>
-        </Style>
 
         <Style Selector="Button">
             <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="MinWidth" Value="110"/>
         </Style>
     </Window.Styles>
 
-    <Grid RowDefinitions="Auto,*">
-
-
+    <Grid RowDefinitions="Auto ,* ,Auto">
 
         <!-- Top bar -->
-        <Border Grid.Row="0"
-                Padding="12"
-                BorderThickness="0,0,0,1"
-                BorderBrush="{DynamicResource ThemeBorderLowBrush}"
-                IsVisible="True">
-            <DockPanel LastChildFill="True">
-                    <TextBlock Text="AvaloniaERP" FontSize="18" FontWeight="SemiBold" Margin="0,5,10,0"/>
-            </DockPanel>
-        </Border>
+
+        <StackPanel Grid.Row ="0">
+                <TextBlock Text="AvaloniaERP" FontSize="18" FontWeight="SemiBold" Margin="12"/>
+                <Separator/>
+        </StackPanel>
+
+
 
         <!-- Body -->
         <Grid Grid.Row="1" ColumnDefinitions="120,*">
 
             <!-- Navigation -->
-            <Border BorderThickness="0,0,1,0"
-                    BorderBrush="{DynamicResource ThemeBorderLowBrush}">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <DockPanel Margin="12" LastChildFill="True">
                     <TextBlock DockPanel.Dock="Top"
                                Text="Navigation"
                                FontWeight="SemiBold"
-                               Margin="0,10,0,8"/>
+                               Margin="8"/>
 
                     <StackPanel Spacing="8">
+                        <Button Content="Home" Command="{Binding ShowHomeCommand}"/>
+                        <Separator/>
+                        <Button Content="Products" Command="{Binding ShowProductsCommand}"/>
+                        <Button Content="Customers" Command="{Binding ShowCustomersCommand}"/>
 
-                       <Button Classes="primary" Content="Home" Command="{Binding ShowHomeCommand}"/>
-                        
-                        <Separator Margin="0,8"/>
-                        
-                       <Button Classes="primary" Content="Products"
-                                Command="{Binding ShowProductsCommand}"/>
-
-                       <Button Classes="primary" Content="Customers"
-                                Command="{Binding ShowCustomersCommand}"/>
-
-                       <Button Classes="primary" Content="Orders"
-                                Command="{Binding ShowOrdersCommand}"/>
-                       <Button Classes="primary" Content="Cart" IsEnabled="False"/>
-
+                        <Button Content="Orders" Command="{Binding ShowOrdersCommand}"/>
 
                     </StackPanel>
 
-                    <Border DockPanel.Dock="Bottom"
-                            Padding="8"
-                            Margin="0,12,0,0"
-                            Background="{DynamicResource ThemeControlLowBrush}"
-                            CornerRadius="6">
-                    </Border>
                 </DockPanel>
-            </Border>
+                <Rectangle Width="1" Fill="DarkSlateGray" Opacity="10"/>
+
+            </StackPanel>
+
+
+
 
             <!-- Content area -->
             <Grid Grid.Column="1" Margin="12">
 
                 <!-- Empty-state / welcome panel -->
-                <Border Padding="24"
-                        Background="{DynamicResource ThemeControlLowBrush}"
-                        CornerRadius="12"
-                        MaxWidth="650"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        IsVisible="{Binding HasNoCurrent}">
+                <Border Padding="24" IsVisible="{Binding HasNoCurrent}">
                     
                     <StackPanel Spacing="10">
                         <TextBlock Text="Welcome"
@@ -116,6 +82,14 @@
                                 VerticalAlignment="Stretch"
                                 IsVisible="{Binding HasCurrent}"/>
             </Grid>
+
         </Grid>
+
+        <!--Bottom panel -->
+        <StackPanel Grid.Row="2">
+            <Separator Margin="8"/>
+            <TextBlock Text="{Binding ErrorText}" FontSize="18" FontWeight="Regular" Opacity="70" Margin="8"/>
+        </StackPanel>
+
     </Grid>
 </Window>

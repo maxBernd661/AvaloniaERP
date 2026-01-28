@@ -61,15 +61,22 @@ namespace AvaloniaERP.Win.ViewModels.Base
 
         public async Task ReloadAsync()
         {
-            Items.Clear();
-
-            IQueryable<TEntity> set = context.Set<TEntity>().AsNoTracking();
-            IQueryable<TEntity> query = ApplyFilter(set, FilterString);
-            query = ApplyOrder(query);
-            List<TRow> rows = await Project(query).ToListAsync();
-            foreach (var row in rows)
+            try
             {
-                Items.Add(row);
+                Items.Clear();
+
+                IQueryable<TEntity> set = context.Set<TEntity>().AsNoTracking();
+                IQueryable<TEntity> query = ApplyFilter(set, FilterString);
+                query = ApplyOrder(query);
+                List<TRow> rows = await Project(query).ToListAsync();
+                foreach (var row in rows)
+                {
+                    Items.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                //
             }
         }
 
@@ -88,11 +95,10 @@ namespace AvaloniaERP.Win.ViewModels.Base
             return true;
         }
 
-
         protected abstract IQueryable<TEntity> ApplyFilter(IQueryable<TEntity> q, string? filter);
+
         protected abstract IOrderedQueryable<TEntity> ApplyOrder(IQueryable<TEntity> q);
+
         protected abstract IQueryable<TRow> Project(IQueryable<TEntity> q);
     }
-
-
 }

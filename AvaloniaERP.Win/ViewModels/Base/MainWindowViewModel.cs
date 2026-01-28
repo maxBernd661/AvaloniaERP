@@ -8,7 +8,8 @@ namespace AvaloniaERP.Win.ViewModels.Base
     {
         private readonly IViewModelFactory factory = null!;
 
-        public MainWindowViewModel() { }
+        public MainWindowViewModel()
+        { }
 
         public MainWindowViewModel(IViewModelFactory factory)
         {
@@ -30,10 +31,9 @@ namespace AvaloniaERP.Win.ViewModels.Base
             }
         }
 
-
+        public string ErrorText { get; set; }
         public bool HasCurrent => Current is not null;
         public bool HasNoCurrent => !HasCurrent;
-
 
         [RelayCommand]
         public void ShowProducts()
@@ -41,7 +41,7 @@ namespace AvaloniaERP.Win.ViewModels.Base
             IViewModel vm = factory.Create(typeof(Product), ViewKind.ListView);
             Current = vm;
         }
-        
+
         [RelayCommand]
         public void ShowCustomers()
         {
@@ -55,7 +55,6 @@ namespace AvaloniaERP.Win.ViewModels.Base
             IViewModel vm = factory.Create(typeof(Order), ViewKind.ListView);
             Current = vm;
         }
-
 
         [RelayCommand]
         public void ShowHome()

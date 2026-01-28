@@ -1,13 +1,11 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AvaloniaERP.Win.App"
-             xmlns:vm="clr-namespace:AvaloniaERP.Win.ViewModels"
-             xmlns:views="clr-namespace:AvaloniaERP.Win.Views"
-             xmlns:win="clr-namespace:AvaloniaERP.Win"
              xmlns:entitySpecific="clr-namespace:AvaloniaERP.Win.ViewModels.EntitySpecific"
              xmlns:list="clr-namespace:AvaloniaERP.Win.Views.List"
              xmlns:detail="clr-namespace:AvaloniaERP.Win.Views.Detail"
              xmlns:vm1="clr-namespace:AvaloniaERP.Win.ViewModels.Detail"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -39,6 +37,6 @@
     </Application.DataTemplates>
   
      <Application.Styles>
-         <RomzetronTheme ColorTheme="DeepOrange" />
+         <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="DeepOrange" SecondaryColor="Green" />
      </Application.Styles>
 </Application>

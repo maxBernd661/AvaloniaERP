@@ -35,11 +35,6 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         [Required]
         private Customer? customer;
 
-        partial void OnCustomerChanged(Customer? value)
-        {
-            (OpenCustomerCommand as RelayCommand)?.NotifyCanExecuteChanged();
-        }
-
         [ObservableProperty]
         private OrderStatus status;
 
@@ -77,6 +72,5 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         }
 
         protected override void Delete() => throw new NotImplementedException();
-        protected override void Cancel() => throw new NotImplementedException();
     }
 }

@@ -46,10 +46,9 @@
                   </StackPanel>
 
                   <StackPanel Grid.Row="0" Grid.Column ="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
-                      <Button Content="Save" Classes="primary" Command ="{Binding SaveCommand  }"/>
-                      <Button Content ="Reset" Classes="primary" Command="{Binding ResetCommand}"/>
-                      <Button Content ="Cancel" Classes="primary" Command="{Binding CancelCommand}"/>
-                      <Button Content ="Exit" Classes="primary" Command="{Binding DeleteCommand}"/>
+                      <Button Content="Save" Classes="primary" Command ="{Binding SaveCommand , Mode=Default }"/>
+                      <Button Content ="Reset" Classes="primary" Command="{Binding ResetCommand, Mode=Default}"/>
+                      <Button Content="Delete" Classes="primary" Command="{Binding DeleteCommand, Mode=Default}"/>
                   </StackPanel>
               </Grid>
 
