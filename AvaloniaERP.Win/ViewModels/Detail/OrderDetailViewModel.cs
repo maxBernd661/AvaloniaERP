@@ -24,6 +24,8 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         public IAsyncRelayCommand AddItemCommand { get; }
         public IRelayCommand RemoveItemCommand { get; }
 
+        public IAsyncRelayCommand SendOrderCommand { get; }
+
         public ObservableCollection<OrderItemRow> Items { get; } = [];
 
         public OrderDetailViewModel(IServiceProvider sp) : base(sp)
@@ -32,6 +34,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
             AddItemCommand = new AsyncRelayCommand(AddItem);
             RemoveItemCommand = new RelayCommand(RemoveSelectedItem, () => SelectedItem is not null);
+            SendOrderCommand = new AsyncRelayCommand(SendOrder, CanSendOrder);
             _ = LoadCustomers();
             _ = LoadProducts();
         }
@@ -42,6 +45,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             OpenCustomerCommand = new RelayCommand(OpenCustomer, () => Customer is not null);
             AddItemCommand = new AsyncRelayCommand(AddItem);
             RemoveItemCommand = new RelayCommand(RemoveSelectedItem, () => SelectedItem is not null);
+            SendOrderCommand = new AsyncRelayCommand(SendOrder, CanSendOrder);
             _ = LoadCustomers();
             _ = LoadProducts();
             Reset();
@@ -68,6 +72,17 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         private OrderItemRow? selectedItem;
 
         public ObservableCollection<Customer> Customers { get; } = [];
+
+        private async Task SendOrder()
+        {
+            Status = OrderStatus.Shipped;
+            await Save();
+        }
+
+        private bool CanSendOrder()
+        {
+            return Entity.Status is not OrderStatus.Shipped;
+        }
 
         private void OpenCustomer()
         {

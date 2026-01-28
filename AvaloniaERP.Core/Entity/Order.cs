@@ -9,7 +9,7 @@ namespace AvaloniaERP.Core.Entity
 
         public Customer Customer { get; set; } = null!;
 
-        public OrderStatus Status { get; set; }
+        public OrderStatus Status { get; set; } = OrderStatus.Draft;
 
         private readonly List<OrderItem> items = [];
 
