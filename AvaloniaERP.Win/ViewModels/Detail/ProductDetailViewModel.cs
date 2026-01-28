@@ -20,7 +20,7 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
     private string name = "";
 
     [ObservableProperty]
-    [Range(typeof(decimal), "0.0", "99999")]
+    [Range(typeof(decimal), "0", "99999")]
     private decimal pricePerUnit;
 
     [ObservableProperty]

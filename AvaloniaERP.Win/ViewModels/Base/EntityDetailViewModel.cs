@@ -75,7 +75,14 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         protected async Task Save()
         {
             Write();
-            ValidateAllProperties();
+            try
+            {
+                ValidateAllProperties();
+            }
+            catch (Exception ex)
+            { 
+                //todo
+            }
 
             if (HasErrors)
             {
@@ -84,7 +91,15 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 
             Type serviceType = typeof(DataManipulationService<>).MakeGenericType(typeof(TEntity));
             IDataManipulationService service = (IDataManipulationService)ServiceProvider.GetRequiredService(serviceType);
-            await service.SaveAsync(Entity);
+
+            try
+            {
+                await service.SaveAsync(Entity);
+            }
+            catch (Exception ex)
+            {
+                //todo
+            }
         }
 
         protected abstract void Write();
@@ -114,18 +129,6 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         protected abstract void Delete();
 
         protected abstract void Cancel();
-    }
-
-    public class AsyncRelayCommand(Func<Task> execute) : ICommand
-    {
-        public bool CanExecute(object? parameter) => true;
-
-        public async void Execute(object? parameter)
-        {
-            await execute();
-        }
-
-        public event EventHandler? CanExecuteChanged;
     }
 }
  
