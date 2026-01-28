@@ -42,7 +42,8 @@
              Grid.Row="2"
              ItemsSource="{Binding Items}"
              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
-             SelectionMode="Single, AlwaysSelected">
+             SelectionMode="Single, AlwaysSelected"
+             DoubleTapped="ListBox_OnDoubleTapped">
 
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
@@ -52,7 +53,7 @@
 
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <Border Padding="4" DoubleTapped="InputElement_OnDoubleTapped">
+          <Border Padding="4">
             <DockPanel LastChildFill="True">
               <TextBlock Text="{Binding DisplayString}"/>
             </DockPanel>

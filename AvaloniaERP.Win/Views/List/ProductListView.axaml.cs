@@ -18,10 +18,10 @@ public partial class ProductListView : UserControl
         DataContext = vm;
     }
 
-    private void InputElement_OnDoubleTapped(object? sender, TappedEventArgs e)
+    private void ListBox_OnDoubleTapped(object? sender, TappedEventArgs e)
     {
         if (DataContext is ProductListViewModel vm &&
-            sender is Control { DataContext: ProductRow row })
+            sender is ListBox { SelectedItem: ProductRow row })
         {
             vm.SelectedRow = row;
             vm.OpenSelected.Execute(null);

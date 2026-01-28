@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:AvaloniaERP.Win.ViewModels"
              xmlns:detail="clr-namespace:AvaloniaERP.Win.ViewModels.Detail"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="850"
              x:DataType="detail:CustomerDetailViewModel"
@@ -82,7 +81,8 @@
                              ItemsSource="{Binding Orders}"
                              SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                              SelectionMode="Single, AlwaysSelected"
-                             MinHeight="150">
+                             MinHeight="150"
+                             DoubleTapped="ListBox_OnDoubleTapped">
 
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>

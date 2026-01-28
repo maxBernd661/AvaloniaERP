@@ -17,10 +17,10 @@ public partial class OrderListView : UserControl
         DataContext = vm;
     }
 
-    private void InputElement_OnDoubleTapped(object? sender, TappedEventArgs e)
+    private void ListBox_OnDoubleTapped(object? sender, TappedEventArgs e)
     {
         if (DataContext is OrderListViewModel vm &&
-            sender is Control { DataContext: OrderRow row })
+            sender is ListBox { SelectedItem: OrderRow row })
         {
             vm.SelectedRow = row;
             vm.OpenSelected.Execute(null);

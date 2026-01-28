@@ -17,10 +17,10 @@ public partial class CustomerListView : UserControl
         DataContext = vm;
     }
 
-    private void InputElement_OnDoubleTapped(object? sender, TappedEventArgs e)
+    private void ListBox_OnDoubleTapped(object? sender, TappedEventArgs e)
     {
         if (DataContext is CustomerListViewModel vm &&
-            sender is Control { DataContext: CustomerRow row })
+            sender is ListBox { SelectedItem: CustomerRow row })
         {
             vm.SelectedRow = row;
             vm.OpenSelected.Execute(null);

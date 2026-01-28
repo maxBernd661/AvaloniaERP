@@ -90,7 +90,7 @@
 
                     <TextBlock Text="Status" Classes="field-label"/>
                     <!-- Minimal, works without extra enum binding helpers -->
-                    <TextBox Text="{Binding Status, Mode=TwoWay}" Watermark="Pending"/>
+                    <TextBox Text="{Binding Status, Mode=TwoWay}" Watermark="Draft" IsReadOnly="True"/>
                 </StackPanel>
 
                 <Border Grid.Column="0"
@@ -107,7 +107,8 @@
                     <ListBox x:Name="ListBox"
                              ItemsSource="{Binding Items}"
                              SelectionMode="Single, AlwaysSelected"
-                             MinHeight="150">
+                             MinHeight="150"
+                             DoubleTapped="ListBox_OnDoubleTapped">
 
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -117,7 +118,7 @@
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Padding="4" DoubleTapped="InputElement_OnDoubleTapped">
+                                <Border Padding="4">
                                     <DockPanel LastChildFill="True">
                                         <TextBlock Text="{Binding DisplayString}"/>
                                     </DockPanel>
