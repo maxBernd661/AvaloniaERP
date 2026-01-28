@@ -64,6 +64,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         {
             Items.Clear();
 
+            SetDefault();
             Customer = Entity.Customer;
             Status = Entity.Status;
             SyncSelectedCustomer();

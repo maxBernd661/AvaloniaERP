@@ -32,7 +32,7 @@
                     FontWeight="SemiBold"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Command="{Binding OpenCustomerCommand}"/>
+                    Command="{Binding DeleteSelected}"/>
         </Grid>
 
         <!-- Search -->

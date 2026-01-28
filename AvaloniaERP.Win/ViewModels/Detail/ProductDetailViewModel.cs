@@ -37,6 +37,7 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
 
     protected override sealed void Reset()
     {
+        SetDefault();
         Name = Entity.Name;
         PricePerUnit = Entity.PricePerUnit;
         Weight = Entity.Weight;

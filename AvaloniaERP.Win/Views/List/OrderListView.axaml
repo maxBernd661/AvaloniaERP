@@ -32,7 +32,7 @@
                   FontWeight="SemiBold"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center"
-                  Command="{Binding OpenOrderCommand}"/>
+                  Command="{Binding DeleteSelected}"/>
       </Grid>
     <!-- Search -->
     <TextBox Grid.Row="1"

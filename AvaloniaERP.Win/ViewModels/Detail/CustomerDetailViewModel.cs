@@ -63,6 +63,7 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
 
     protected override sealed void Reset()
     {
+        SetDefault();
         Name = Entity.Name;
         Email = Entity.Email;
         Address = Entity.Address;

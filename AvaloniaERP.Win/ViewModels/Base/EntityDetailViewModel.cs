@@ -26,7 +26,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         }
     }
 
-    public abstract class EntityDetailViewModel<TEntity> : DetailViewModelBase where TEntity : PersistentBase
+    public abstract partial class EntityDetailViewModel<TEntity> : DetailViewModelBase where TEntity : PersistentBase
     {
         protected IServiceProvider ServiceProvider;
         protected TEntity Entity;
@@ -53,20 +53,14 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             DeleteCommand = new RelayCommand(Delete, CanDelete);
         }
 
-        public Guid EntityId
-        {
-            get { return Entity?.Id ?? Guid.Empty; }
-        }
+        [ObservableProperty]
+        protected Guid entityId;
 
-        public string CreationTime
-        {
-            get { return Entity.CreationTime.ToString("dd.MM.yyyy - hh:mm"); }
-        }
+        [ObservableProperty]
+        protected string creationTime;
 
-        public string UpdateTime
-        {
-            get { return Entity.UpdateTime.ToString("dd.MM.yyyy - hh:mm"); }
-        }
+        [ObservableProperty]
+        protected string updateTime;
 
         protected async Task Save()
         {
@@ -118,6 +112,13 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         }
 
         protected abstract void Reset();
+
+        protected void SetDefault()
+        {
+            EntityId = Entity.Id;
+            UpdateTime = Entity.UpdateTime.ToString("dd.MM.yyyy - hh:mm");
+            CreationTime = Entity.CreationTime.ToString("dd.MM.yyyy - hh:mm");
+        }
 
         protected abstract void Delete();
     }

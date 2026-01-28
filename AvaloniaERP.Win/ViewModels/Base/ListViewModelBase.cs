@@ -25,6 +25,7 @@ namespace AvaloniaERP.Win.ViewModels.Base
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public IAsyncRelayCommand OpenSelected { get; }
+        public IAsyncRelayCommand DeleteSelected { get; }
 
         protected void InitializeList()
         {
@@ -58,6 +59,7 @@ namespace AvaloniaERP.Win.ViewModels.Base
             ServiceProvider = sp;
             context = sp.GetRequiredService<EntityContext>();
             OpenSelected = new AsyncRelayCommand(ShowSelectedAsync);
+            DeleteSelected = new AsyncRelayCommand(DeleteSelectedAsync, CanDelete);
         }
 
         public string? FilterString
@@ -113,6 +115,30 @@ namespace AvaloniaERP.Win.ViewModels.Base
                                                         .CreateDetailView(typeof(TEntity), item);
 
             ServiceProvider.GetRequiredService<INavigationService>().Navigate(viewModel);
+        }
+
+        protected async Task DeleteSelectedAsync()
+        {
+            if (SelectedRow is not RowBase<TEntity> row)
+            {
+                return;
+            }
+
+            TEntity? item = await GetEntity(row.Id);
+            if (item is null)
+            {
+                return;
+            }
+
+            context.Set<TEntity>().Remove(item);
+            await context.SaveChangesAsync();
+
+            await ReloadAsync();
+        }
+
+        public bool CanDelete()
+        {
+            return SelectedRow is not null;
         }
 
         public ObservableCollection<TRow> Items { get; } = [];
