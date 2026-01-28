@@ -17,6 +17,7 @@ namespace AvaloniaERP.Win.ViewModels.EntitySpecific
         public OrderListViewModel(IServiceProvider sp) : base(sp)
         {
             OpenOrderCommand = new RelayCommand(ShowOrder);
+            InitializeList();
         }
 
         private void ShowOrder()

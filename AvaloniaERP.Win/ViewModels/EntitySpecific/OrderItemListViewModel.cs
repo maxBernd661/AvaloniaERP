@@ -5,8 +5,13 @@ using AvaloniaERP.Win.ViewModels.Base;
 
 namespace AvaloniaERP.Win.ViewModels.EntitySpecific
 {
-    public class OrderItemListViewModel(IServiceProvider sp) : ListViewModelBase<OrderItem, OrderItemRow>(sp)
+    public class OrderItemListViewModel : ListViewModelBase<OrderItem, OrderItemRow>
     {
+        public OrderItemListViewModel(IServiceProvider sp) : base(sp)
+        {
+            InitializeList();
+        }
+
         protected override IQueryable<OrderItem> ApplyFilter(IQueryable<OrderItem> q, string? filter)
         {
             if (string.IsNullOrEmpty(filter))

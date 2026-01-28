@@ -22,6 +22,19 @@ namespace AvaloniaERP.Win.ViewModels.Base
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        protected void InitializeList()
+        {
+            PropertyChanged += (o, args) =>
+            {
+                if (args.PropertyName == nameof(FilterString))
+                {
+                    _ = ReloadAsync();
+                }
+            };
+
+            _ = ReloadAsync();
+        }
+
         private TRow? selectedItem;
 
         public TRow? SelectedRow
