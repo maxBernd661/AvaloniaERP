@@ -1,0 +1,154 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaERP.Win.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="850"
+             x:DataType="viewModels:OrderDetailViewModel"
+             x:Class="AvaloniaERP.Win.Views.Detail.OrderDetailView">
+
+    <UserControl.Styles>
+        <Style Selector="TextBox, ComboBox, DatePicker, NumericUpDown">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="MinHeight" Value="32"/>
+        </Style>
+
+        <Style Selector="TextBlock.field-label">
+            <Setter Property="Margin" Value="0,4,0,4"/>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="MinWidth" Value="110"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="MinHeight" Value="34"/>
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <Border Padding="18"
+                CornerRadius="12"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource ThemeBorderLowBrush}">
+
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="16"
+                  RowSpacing="14">
+
+                <!-- Header -->
+                <Grid Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      ColumnDefinitions="*,Auto"
+                      RowDefinitions="Auto,Auto">
+                    <StackPanel>
+                        <TextBlock Text="Order" FontSize="20" FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                VerticalAlignment="Top">
+                        <Button Content="Save" Classes="primary" Command="{Binding SaveCommand}"/>
+                        <Button Content="Reset" Classes="primary" Command="{Binding ResetCommand}"/>
+                        <Button Content="Cancel" Classes="primary" Command="{Binding CancelCommand}"/>
+                        <Button Content="Exit" Classes="primary" Command="{Binding DeleteCommand}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Height="1"
+                        Background="{DynamicResource ThemeBorderLowBrush}"
+                        Margin="0,6,0,2"/>
+
+                <!-- Common -->
+                <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                    <TextBlock Text="Common" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Customer" Classes="field-label"/>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <!-- Adjust display member to whatever you want shown. -->
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding Customer.Name}"
+                                 IsReadOnly="True"
+                                 Watermark="No customer selected"/>
+
+                        <Button Grid.Column="1"
+                                Content="Open"
+                                Classes="primary"
+                                MinWidth="110"
+                                Command="{Binding OpenCustomerCommand}"/>
+                    </Grid>
+
+                    <TextBlock Text="Status" Classes="field-label"/>
+                    <!-- Minimal, works without extra enum binding helpers -->
+                    <TextBox Text="{Binding Status, Mode=TwoWay}" Watermark="Pending"/>
+                </StackPanel>
+
+                <Border Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Height="1"
+                        Background="{DynamicResource ThemeBorderLowBrush}"
+                        Margin="0,6,0,2"/>
+
+                <!-- Items -->
+                <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+                    <TextBlock Text="Items" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,8"/>
+
+                    <ListBox x:Name="ListBox"
+                             ItemsSource="{Binding Items}"
+                             SelectionMode="Single, AlwaysSelected"
+                             MinHeight="150">
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="4">
+                                    <DockPanel LastChildFill="True">
+                                        <TextBlock Text="{Binding DisplayString}"/>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+                <!-- Additional Information -->
+                <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                    <TextBlock Text="Additional Information" FontSize="14" FontWeight="Regular" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Id" Classes="field-label"/>
+                    <TextBox Text="{Binding EntityId, Mode=TwoWay}"
+                             IsReadOnly="true"
+                             Watermark="0000-0000000-000-00"/>
+
+                    <TextBlock Text="Created at" Classes="field-label"/>
+                    <TextBox Text="{Binding CreationTime, Mode=TwoWay}"
+                             IsReadOnly="true"
+                             Watermark="01.01.1970 - 00:00"/>
+
+                    <TextBlock Text="Last Updated at" Classes="field-label"/>
+                    <TextBox Text="{Binding UpdateTime, Mode=TwoWay}"
+                             IsReadOnly="true"
+                             Watermark="01.01.1970 - 00:00"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </ScrollViewer>
+
+</UserControl>

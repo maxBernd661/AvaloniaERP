@@ -1,4 +1,5 @@
 ﻿using AvaloniaERP.Core.Entity;
+using AvaloniaERP.Win.ViewModels.Detail;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.ComponentModel.DataAnnotations;

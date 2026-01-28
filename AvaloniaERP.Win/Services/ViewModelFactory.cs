@@ -1,6 +1,7 @@
 ﻿ using System;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.ViewModels;
+using AvaloniaERP.Win.ViewModels.Detail;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using Microsoft.Extensions.DependencyInjection;
 
