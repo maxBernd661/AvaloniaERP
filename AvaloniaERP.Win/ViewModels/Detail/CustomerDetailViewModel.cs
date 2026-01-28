@@ -1,14 +1,14 @@
-﻿using AvaloniaERP.Core.Entity;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace AvaloniaERP.Win.ViewModels;
+namespace AvaloniaERP.Win.ViewModels.Detail;
 
 public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
 {

@@ -4,6 +4,9 @@ using AvaloniaERP.Win.ViewModels;
 using AvaloniaERP.Win.ViewModels.Detail;
 using AvaloniaERP.Win.ViewModels.EntitySpecific;
 using Microsoft.Extensions.DependencyInjection;
+using CustomerDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.CustomerDetailViewModel;
+using OrderDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.OrderDetailViewModel;
+using ProductDetailViewModel = AvaloniaERP.Win.ViewModels.Detail.ProductDetailViewModel;
 
 namespace AvaloniaERP.Win.Services
 {

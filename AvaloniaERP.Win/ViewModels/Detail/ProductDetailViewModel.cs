@@ -1,10 +1,9 @@
-﻿using AvaloniaERP.Core.Entity;
-using AvaloniaERP.Win.ViewModels.Detail;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AvaloniaERP.Core.Entity;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AvaloniaERP.Win.ViewModels;
+namespace AvaloniaERP.Win.ViewModels.Detail;
 
 public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
 {

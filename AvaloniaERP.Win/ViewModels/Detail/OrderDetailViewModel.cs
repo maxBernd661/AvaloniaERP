@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using AvaloniaERP.Core.Entity;
 using AvaloniaERP.Win.Services;
@@ -10,7 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AvaloniaERP.Win.ViewModels
+namespace AvaloniaERP.Win.ViewModels.Detail
 {
     public partial class OrderDetailViewModel : EntityDetailViewModel<Order>
     {
