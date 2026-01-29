@@ -220,7 +220,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             try
             {
                 EntityContext context = ServiceProvider.GetRequiredService<EntityContext>();
-                List<Customer> customers = await context.Customers.AsNoTracking()
+                List<Customer> customers = await context.Customers.AsNoTracking().Where(x => x.IsActive)
                                                         .OrderBy(x => x.Name)
                                                         .ToListAsync();
 
@@ -257,7 +257,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             try
             {
                 EntityContext context = ServiceProvider.GetRequiredService<EntityContext>();
-                List<Product> products = await context.Products.AsNoTracking()
+                List<Product> products = await context.Products.AsNoTracking().Where(x => x.IsAvailable)
                                                       .OrderBy(x => x.Name)
                                                       .ToListAsync();
 

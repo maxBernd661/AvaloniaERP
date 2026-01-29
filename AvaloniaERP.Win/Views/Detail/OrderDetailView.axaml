@@ -103,14 +103,14 @@
 
                 <!-- Items -->
                 <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
-                    <TextBlock Text="Items" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,8"/>
+                    <TextBlock Text="Products" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,8"/>
 
                     
                     <Grid ColumnDefinitions="2*,*,Auto,Auto" ColumnSpacing="10" RowDefinitions="Auto" Margin="0,0,0,8">
                         <ComboBox Grid.Column="0"
                                   ItemsSource="{Binding Products}"
                                   SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
-                                  DisplayMemberBinding="{Binding Name}"/>
+                                  DisplayMemberBinding="{Binding DisplayString}"/>
                         <NumericUpDown Grid.Column="1"
                                        Value="{Binding SelectedQuantity, Mode=TwoWay}"
                                        Minimum="1"

@@ -13,6 +13,12 @@ namespace AvaloniaERP.Core.Entity
         public double Weight { get; set; }
 
         public bool IsAvailable { get; set; }
+
+        public string DisplayString
+        {
+            get { return $"{Name} - {PricePerUnit:C} - {Weight}kg - {IsAvailable}"; }
+        }
+
     }
 
     public class ProductConfig : IEntityTypeConfiguration<Product>
