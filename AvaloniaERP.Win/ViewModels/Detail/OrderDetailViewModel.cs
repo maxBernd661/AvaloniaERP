@@ -104,6 +104,14 @@ namespace AvaloniaERP.Win.ViewModels.Detail
 
             SetDefault();
             Customer = Entity.Customer;
+
+            if (Customer is null && Entity.CustomerId != Guid.Empty)
+            {
+                EntityContext context = ServiceProvider.GetRequiredService<EntityContext>();
+                Customer = context.Customers.AsNoTracking()
+                    .FirstOrDefault(x => x.Id == Entity.CustomerId);
+            }
+
             Status = Entity.Status;
             SyncSelectedCustomer();
 
