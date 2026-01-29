@@ -1,4 +1,4 @@
-# AvaloniaERP
+# AvaloniaERP [Download](https://github.com/maxBernd661/AvaloniaERP/releases/download/Stable/AvaloniaERP_1.0.0_Stable.zip)
 
 ## Überblick
 Das Programm stellt ein ERP System für das erstellen von Kunden, Artikeln und Bestellungen dar. 
