@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="AvaloniaERP – Mini-ERP mit Avalonia (MVVM), EF Core und SQLite." />
+  <title>AvaloniaERP</title>
+
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#101824; --text:#e7eef7; --muted:#9fb0c3;
+      --accent:#7cc4ff; --accent2:#a2ffcc; --line:rgba(255,255,255,.10);
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1050px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f6f8fb; --panel:#ffffff; --text:#0b1220; --muted:#516176; --line:rgba(0,0,0,.10); --shadow: 0 16px 40px rgba(0,0,0,.10); }
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(124,196,255,.18), transparent 60%),
+                  radial-gradient(1000px 500px at 80% 10%, rgba(162,255,204,.14), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 60px}
+    header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0 22px}
+    .brand{display:flex; gap:12px; align-items:center; text-decoration:none}
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow: var(--shadow);
+    }
+    .brand b{font-size:18px}
+    .brand span{display:block; color:var(--muted); font-size:13px; margin-top:2px}
+
+    .pillbar{display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end}
+    .pill{
+      text-decoration:none; padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line); background: rgba(255,255,255,.04);
+    }
+    .pill:hover{border-color: rgba(124,196,255,.55)}
+
+    .hero{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:18px;
+      align-items:stretch; margin-top:6px;
+    }
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr} }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+    h1{margin:0 0 10px; font-size:42px; line-height:1.06; letter-spacing:-.02em}
+    @media (max-width: 520px){ h1{font-size:34px} }
+    .subtitle{color:var(--muted); margin:0 0 18px; font-size:16px}
+    .cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .btn{
+      text-decoration:none; padding:10px 14px; border-radius:12px;
+      border:1px solid var(--line); background: rgba(255,255,255,.05);
+      display:inline-flex; gap:10px; align-items:center;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,196,255,.24), rgba(162,255,204,.18));
+      border-color: rgba(124,196,255,.50);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn small{color:var(--muted)}
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px; margin-top:14px}
+    .col6{grid-column: span 6}
+    .col4{grid-column: span 4}
+    .col12{grid-column: span 12}
+    @media (max-width: 900px){ .col6,.col4{grid-column: span 12} }
+
+    h2{margin:0 0 10px; font-size:18px}
+    ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    li{margin:6px 0}
+    code,kbd{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+    .meta{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;
+      color:var(--muted); font-size:13px
+    }
+    .tag{
+      border:1px solid var(--line); border-radius:999px; padding:5px 10px;
+      background: rgba(255,255,255,.03);
+    }
+    footer{margin-top:22px; color:var(--muted); font-size:13px; text-align:center}
+    .sep{height:1px; background:var(--line); margin:18px 0}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="https://github.com/maxBernd661/AvaloniaERP" target="_blank" rel="noreferrer">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>AvaloniaERP</b>
+          <span>Mini-ERP: Kunden, Artikel, Bestellungen</span>
+        </div>
+      </a>
+
+      <nav class="pillbar">
+        <a class="pill" href="erModel.pdf">ER-Modell (PDF)</a>
+        <a class="pill" href="tables.sql">SQL Schema</a>
+        <a class="pill" href="https://github.com/maxBernd661/AvaloniaERP/releases/latest" target="_blank" rel="noreferrer">Release</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h1>ERP, aber klein genug, dass man es noch versteht.</h1>
+        <p class="subtitle">
+          AvaloniaERP ist ein Desktop-Mini-ERP mit Avalonia (MVVM) im .NET Generic Host,
+          EF Core und SQLite. Fokus: saubere Service-Architektur statt “alles im Code-Behind, wird schon”.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/maxBernd661/AvaloniaERP" target="_blank" rel="noreferrer">
+            <span>GitHub Repo</span>
+            <small>Code & Doku</small>
+          </a>
+          <a class="btn" href="https://github.com/maxBernd661/AvaloniaERP/releases/latest" target="_blank" rel="noreferrer">
+            <span>Latest Release</span>
+            <small>Download</small>
+          </a>
+          <a class="btn" href="#architektur">
+            <span>Architektur</span>
+            <small>Überblick</small>
+          </a>
+        </div>
+
+        <div class="meta">
+          <span class="tag">Avalonia MVVM</span>
+          <span class="tag">EF Core</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Generic Host</span>
+          <span class="tag">Unit Tests</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Projektstruktur</h2>
+        <ul>
+          <li><code>AvaloniaERP.Win</code> – Frontend (Avalonia MVVM)</li>
+          <li><code>AvaloniaERP.Core</code> – Backend (EF Core + SQLite)</li>
+          <li><code>AvaloniaERP.Core.Test</code> – Tests (Auditing/Soft-Delete)</li>
+        </ul>
+
+        <div class="sep"></div>
+
+        <h2>Schnellstart</h2>
+        <ul>
+          <li><code>dotnet test AvaloniaERP.Core.Test/AvaloniaERP.Core.Test.csproj</code></li>
+          <li>Datenbankpfad: <code>AvaloniaERP.Win/appsettings.json</code></li>
+          <li>Migrationen: via EF Core (siehe Repo)</li>
+        </ul>
+
+        <div class="sep"></div>
+
+        <h2>Artefakte</h2>
+        <ul>
+          <li><a href="erModel.pdf">ER-Modell (PDF)</a></li>
+          <li><a href="tables.sql">SQL Tabellen (DDL)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="architektur" class="grid">
+      <div class="card col6">
+        <h2>Backend (Core)</h2>
+        <ul>
+          <li>Entitäten in <code>AvaloniaERP.Core/Entity</code></li>
+          <li><code>EntityContext</code>: CRUD, Zeitstempel, Soft-Deletes</li>
+          <li><code>IQueryProfile&lt;T&gt;</code>: Ladeverhalten/Includes</li>
+          <li><code>IGraphMerger&lt;T&gt;</code>: Speichern komplexer Objektgraphen</li>
+          <li><code>RowBase&lt;T&gt;</code>: DTOs fürs UI</li>
+        </ul>
+      </div>
+
+      <div class="card col6">
+        <h2>Frontend (Win)</h2>
+        <ul>
+          <li>Avalonia MVVM auf .NET Generic Host</li>
+          <li>Service-basiert: Navigation & VM-Erstellung</li>
+          <li><code>IViewModelFactory</code>, <code>INavigationService</code></li>
+          <li>CRUD über <code>IDataManipulationService</code></li>
+          <li>Views via XAML</li>
+        </ul>
+      </div>
+
+      <div class="card col12">
+        <h2>Warum existiert das?</h2>
+        <p style="margin:0;color:var(--muted)">
+          Weil “Mini-ERP” ein perfekter Prüfungsprojekt-Klassiker ist: genug Domäne für echte Beziehungen,
+          genug UI für echtes MVVM, und genug Datenbank für echte Fehler. Und weil Menschen gerne leiden.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> AvaloniaERP · Statisch gehostet über GitHub Pages ·
+      <a href="https://github.com/maxBernd661/AvaloniaERP" target="_blank" rel="noreferrer">Repository</a>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
