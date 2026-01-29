@@ -1,4 +1,8 @@
-# AvaloniaERP [Download](https://github.com/maxBernd661/AvaloniaERP/releases/download/Stable/AvaloniaERP_1.0.0_Stable.zip)
+# AvaloniaERP - [Download](https://github.com/maxBernd661/AvaloniaERP/releases/download/Stable/AvaloniaERP_1.0.0_Stable.zip)
+
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/maxBernd661/AvaloniaERP/total) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/maxBernd661/AvaloniaERP/tests.yml) ![GitHub Repo stars](https://img.shields.io/github/stars/maxBernd661/AvaloniaERP)
+
+
 
 ## Überblick
 Das Programm stellt ein ERP System für das erstellen von Kunden, Artikeln und Bestellungen dar. 
