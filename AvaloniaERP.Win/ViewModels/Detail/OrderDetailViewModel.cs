@@ -94,7 +94,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             IViewModelFactory factory = ServiceProvider.GetRequiredService<IViewModelFactory>();
             INavigationService nav = ServiceProvider.GetRequiredService<INavigationService>();
 
-            IDetailViewModel view = factory.CreateDetailView(typeof(Customer));
+            IDetailViewModel view = factory.CreateDetailView(typeof(Customer), Customer);
             nav.Navigate(view);
         }
 
