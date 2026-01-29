@@ -97,7 +97,9 @@ namespace AvaloniaERP.Win.ViewModels.Base
 
         public async Task<TEntity?> GetEntity(Guid id)
         {
-            return await context.Set<TEntity>().FindAsync(id);
+            IQueryProfile<TEntity> queryProfile = ServiceProvider.GetRequiredService<IQueryProfile<TEntity>>();
+            IQueryable<TEntity> query = queryProfile.Apply(context.Set<TEntity>());
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         protected async Task ShowSelectedAsync()
@@ -136,6 +138,8 @@ namespace AvaloniaERP.Win.ViewModels.Base
             await context.SaveChangesAsync();
 
             await ReloadAsync();
+
+            ShowStatusMessage($"{typeof(TEntity).Name} deleted");
         }
 
         public bool CanDelete()
@@ -163,5 +167,11 @@ namespace AvaloniaERP.Win.ViewModels.Base
         protected abstract IOrderedQueryable<TEntity> ApplyOrder(IQueryable<TEntity> q);
 
         protected abstract IQueryable<TRow> Project(IQueryable<TEntity> q);
+
+        protected void ShowStatusMessage(string message)
+        {
+            ServiceProvider.GetRequiredService<IMessageService>().ShowMessage(message);
+        }
+
     }
 }

@@ -203,6 +203,8 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             context.SaveChanges();
             IListViewModel vm = ServiceProvider.GetRequiredService<IViewModelFactory>().CreateListView(typeof(Order));
             ServiceProvider.GetRequiredService<INavigationService>().Navigate(vm);
+
+            ShowStatusMessage($"'{Entity.Customer.Name}' deleted.");
         }
 
         private async Task LoadCustomers()

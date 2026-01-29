@@ -85,6 +85,7 @@ namespace AvaloniaERP.Win.ViewModels.Detail
             try
             {
                 await service.SaveAsync(Entity);
+                ShowStatusMessage($"{typeof(TEntity).Name} saved.");
             }
             catch (Exception ex)
             {
@@ -121,5 +122,11 @@ namespace AvaloniaERP.Win.ViewModels.Detail
         }
 
         protected abstract void Delete();
+
+        protected void ShowStatusMessage(string message)
+        {
+            ServiceProvider.GetRequiredService<IMessageService>().ShowMessage(message);
+        }
+
     }
 }

@@ -58,6 +58,8 @@ public partial class ProductDetailViewModel : EntityDetailViewModel<Product>
         context.SaveChanges();
         IListViewModel vm = ServiceProvider.GetRequiredService<IViewModelFactory>().CreateListView(typeof(Product));
         ServiceProvider.GetRequiredService<INavigationService>().Navigate(vm);
+
+        ShowStatusMessage($"'{Entity.Name}' deleted.");
     }
 
     protected override void Write()

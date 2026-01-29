@@ -48,6 +48,7 @@ namespace AvaloniaERP.Win
 
                     services.AddSingleton<MainWindowViewModel>();
                     services.AddSingleton<INavigationService, NavigationService>();
+                    services.AddSingleton<IMessageService, MessageService>();
 
                     services.AddTransient<CustomerListViewModel>();
                     services.AddTransient<OrderListViewModel>();

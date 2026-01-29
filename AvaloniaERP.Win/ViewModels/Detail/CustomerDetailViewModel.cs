@@ -90,6 +90,8 @@ public partial class CustomerDetailViewModel : EntityDetailViewModel<Customer>
         context.SaveChanges();
         IListViewModel vm = ServiceProvider.GetRequiredService<IViewModelFactory>().CreateListView(typeof(Customer));
         ServiceProvider.GetRequiredService<INavigationService>().Navigate(vm);
+
+        ShowStatusMessage($"'{Entity.Name}' deleted.");
     }
 
     protected override void Write()

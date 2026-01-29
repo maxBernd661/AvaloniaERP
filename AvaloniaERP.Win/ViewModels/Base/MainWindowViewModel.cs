@@ -31,7 +31,14 @@ namespace AvaloniaERP.Win.ViewModels.Base
             }
         }
 
-        public string ErrorText { get; set; }
+        private string errorText = string.Empty;
+
+        public string ErrorText
+        {
+            get => errorText;
+            set => SetField(ref errorText, value);
+        }
+
         public bool HasCurrent => Current is not null;
         public bool HasNoCurrent => !HasCurrent;
 
